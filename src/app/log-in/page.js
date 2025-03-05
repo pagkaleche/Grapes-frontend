@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export default function SignIn() {
 
@@ -9,9 +10,7 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     router.push('/')
     }
-    const moveToLogin = () => {
-      router.push('/log-in')
-    }
+
     return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-black">
@@ -22,7 +21,7 @@ export default function SignIn() {
               className="mx-auto h-10 w-auto"
             />
             <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white-900">
-              Sign in 
+              Log in 
             </h2>
           </div>
   
@@ -40,6 +39,7 @@ export default function SignIn() {
                     required
                     autoComplete="email"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -58,28 +58,20 @@ export default function SignIn() {
                     required
                     autoComplete="current-password"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-              </div>
-  
+              </div>  
               <div>
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-gray-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-gray-200 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
                   onClick={handleSubmit}
                 >
-                  Sign in
+                  Log in
                 </button>
               </div>
             </form>
-  
-            <p className="mt-10 text-center text-sm/6 text-gray-500">
-              Not a member?{' '}
-              <a href="/log-in" className="font-semibold text-gray-500 hover:text-gray-200">
-
-                Log In
-              </a>
-            </p>
           </div>
         </div>
       </>

@@ -23,7 +23,7 @@ const navigation = {
         {
           name: "Tattoo",
           href: "/gallery/Tattoo-Studio",
-          imageSrc: "/images/gallery/tat1.jpg",
+          imageSrc: "/images/tat1.jpg",
           imageAlt: "Artist applying tattoo to a client.",
         },
         {
