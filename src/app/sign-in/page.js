@@ -1,4 +1,14 @@
+'use client'
+
+import { useRouter } from "next/navigation"
+
 export default function SignIn() {
+
+  const router = useRouter()
+
+  const handleSubmit = async (event) => {
+    router.push('/')
+    }
     return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-black">
@@ -58,6 +68,7 @@ export default function SignIn() {
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-gray-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-gray-200 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
+                  onClick={handleSubmit}
                 >
                   Sign in
                 </button>
@@ -66,7 +77,7 @@ export default function SignIn() {
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">
               Not a member?{' '}
-              <a href="#" className="font-semibold text-gray-500 hover:text-gray-200">
+              <a href="/" className="font-semibold text-gray-500 hover:text-gray-200">
                 Start a 14 day free trial
               </a>
             </p>
