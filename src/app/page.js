@@ -10,17 +10,17 @@ import { useEffect } from 'react';
 
 export default function Home() {
 
-  // useEffect(() => {
-  //   fetch("http://40.233.78.121:8000/api/artists/", {
-  //     method: "GET",
-  //     headers: {
-  //         "Authorization": "Token c9e2be2b5092655c106977520dd6781af6aaa168"
-  //     }
-  // })
-  // .then(response => response.json())
-  // .then(data => console.log(data))
-  // .catch(error => console.error("Error:", error));
-  // }, []);
+  useEffect(() => {
+    fetch("http://40.233.78.121:80/api/artists/", {
+      method: "GET",
+      headers: {
+          "Authorization": "Token c9e2be2b5092655c106977520dd6781af6aaa168"
+      }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
+  }, []);
  
  
   return (
