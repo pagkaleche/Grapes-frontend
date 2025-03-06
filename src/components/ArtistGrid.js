@@ -36,7 +36,7 @@ const ArtistGrid = () => {
   const artists = [
     { id: 1, name: 'Artem', skill: 'Makeup', image: '/images/artist/artem.png', instagram: 'https://instagram.com/artem', href: '/artists/artem' },
     { id: 2, name: 'David', skill: 'Nails', image: '/images/artist/david.png', instagram: 'https://instagram.com/david', href: '/artists/david' },
-    { id: 3, name: 'Max', skill: 'Tattoo', image: '/images/artist/maks.png', instagram: 'https://instagram.com/max', href: '/artists/max' },
+    { id: 3, name: 'Max', skill: 'Tattoo', image: '/images/artist/max.png', instagram: 'https://instagram.com/max', href: '/artists/max' },
     { id: 4, name: 'Mikha', skill: 'Nails', image: '/images/artist/mikha.png', instagram: 'https://instagram.com/mikha', href: '/artists/mikha' },
     { id: 5, name: 'Adrian', skill: 'Photography', image: '/images/artist/me.jpg', instagram: 'https://instagram.com/adrian', href: '/artists/adrian' },
   ];
