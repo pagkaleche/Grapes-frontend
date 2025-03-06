@@ -8,6 +8,7 @@ export default function SignIn() {
   const router = useRouter()
 
   const handleSubmit = async (event) => {
+    event.preventDefault()
     router.push('/')
     }
 
@@ -39,7 +40,6 @@ export default function SignIn() {
                     required
                     autoComplete="email"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
-                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -58,7 +58,6 @@ export default function SignIn() {
                     required
                     autoComplete="current-password"
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
-                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>  
