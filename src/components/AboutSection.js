@@ -1,19 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-const trendingProducts = [
-  {
-    id: 1,
-    name: "Leather Long Wallet",
-    color: "Natural",
-    price: "$75",
-    href: "#about us",
-    imageSrc:
-      "https://tailwindui.com/plus/img/ecommerce-images/home-page-04-trending-product-02.jpg",
-    imageAlt: "Hand stitched, orange leather long wallet.",
-  },
-  // More products...
-];
-
 export function AboutSection() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [300, 500], [0, 1]);
