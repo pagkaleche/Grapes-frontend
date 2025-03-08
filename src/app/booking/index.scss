@@ -1,0 +1,163 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Ensures the body takes up the full height of the viewport */
+   background-color: black; /* Set the background color for the entire page */
+   color: white; /* Text color */
+   height: 100%;
+   width: 100%;
+   overflow-x: hidden; /* Prevent horizontal scrolling */
+   
+}
+.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
+   min-height: 100vh;
+   width: 100%;
+   text-align: center;
+   overflow-x: hidden; /* Prevent overflow in the container */
+   max-width: 1000px;
+   margin: 0 auto;
+
+   .selectArtist {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start !important;
+    padding-bottom: 95px;
+    padding-top: 95px;
+    // border-bottom: 1px solid white;
+    
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 115px;
+        }
+
+        select {
+            margin-bottom: 2rem;
+            background-color: black;
+            border: 2px solid white;
+            height: 4rem;
+            width: 450px;
+        }
+
+        label {
+            margin-bottom: 0.5rem; /* Optional: space between label and select */
+            font-size: 1.3rem;
+        }
+    
+    }
+
+    .borderBottom {
+        display: flex;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        border: 1px solid white;
+        width: 100px;
+        margin-bottom: 65px;
+    }
+
+    .clientDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 90px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            // margin: 90px 0 80px 0;
+            // border-bottom: 2px solid white;
+            // justify-content: flex-start !important;
+        }
+
+    }
+
+    .form-container {
+    display: flex;
+    flex-direction: column;
+        span {
+            border: 2px solid white;
+            width: 880px;
+            margin-bottom: 80px;
+        }
+
+        input {
+            background-color: black;
+            border: 2px solid white;
+            height: 4rem;
+            width: 450px;
+        }
+
+        label {
+            margin-bottom: 0.5rem; /* Optional: space between label and select */
+            font-size: 1.3rem;
+        }
+
+        .otherFields div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-right: 2.5rem;
+            margin-bottom: 80px;
+
+            input {
+                width: 940px;
+            }
+
+            input[type="file"] {
+                color: transparent; /* Make the text invisible */
+                background: transparent; /* Make the background transparent */
+                border: 2px solid white; /* You can style the border as needed */
+                padding: 10px; /* Add padding if needed */
+                width: 300px;
+              }
+        }
+    }
+
+    .nameEmailFields {
+    display: flex;
+    margin-bottom: 80px;
+        span {
+            display: flex;
+            flex-direction: column;
+        };
+
+        input {
+            background-color: black;
+            border: 2px solid white;
+            height: 4rem;
+            width: 450px;
+        }
+
+            .nameField, .emailField {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-right: 2.5rem;
+            }
+
+        label {
+            margin-bottom: 0.5rem; /* Optional: space between label and select */
+            font-size: 1.3rem;
+        }
+    }
+
+    .scheduleAppointment {
+        h2 {
+            font-size: 1.9rem;
+        }
+    }
+
+}
+
+
