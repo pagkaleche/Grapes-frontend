@@ -19,7 +19,7 @@ export default function SignIn() {
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white-900">
-            Sign in
+            Sign Up
           </h2>
         </div>
 
@@ -71,7 +71,7 @@ export default function SignIn() {
                 className="flex w-full justify-center rounded-md bg-gray-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-gray-200 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
                 onClick={handleSubmit}
               >
-                Sign in
+                Sign Up
               </button>
             </div>
           </form>

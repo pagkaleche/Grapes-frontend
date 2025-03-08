@@ -45,13 +45,14 @@ const navigation = {
   ],
   pages: [
     { name: "Artists", href: "/artists" },
+    { name: "Appointments", href: "/appointments" },
     { name: "Location", href: "/#location-section" },
   ],
 };
 
 const registration = [
-  { name: "Sign in", href: "/sign-in" },
-  { name: "Log in", href: "/log-in" },
+  { name: "Sign In", href: "/signin" },
+  { name: "Sign Up", href: "/signup" },
 ];
 
 export const Menu = () => {
@@ -61,7 +62,7 @@ export const Menu = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/sign-in") {
+    if (pathname === "/signin") {
       setRegistrationLink(registration[1]);
     } else {
       setRegistrationLink(registration[0]);
@@ -177,9 +178,7 @@ export const Menu = () => {
                 </div>
               </div>
               <div className="hidden lg:flex flex-1 items-center justify-end gap-4">
-                <div
-                  className="group relative flex items-center justify-center text-sm font-medium text-white-700 transition-colors duration-200 ease-out hover:text-red-400 data-[open]:text-white"
-                >
+                <div className="group relative flex items-center justify-center text-sm font-medium text-white-700 transition-colors duration-200 ease-out hover:text-red-400 data-[open]:text-white">
                   <a
                     href={registrationLink.href}
                     className="text-sm font-medium text-white-700 hover:text-gray-500"
