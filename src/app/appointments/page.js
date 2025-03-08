@@ -12,14 +12,23 @@ function Appointments() {
 
   useEffect(() => {
     const apiService = new APIService();
-
-    if (!token) {
-      console.log('no token provided');
-    }
-
-    apiService.Appointments.getAll().then((appointments) => {
+    async function getAppointments() {
+      let appointments = await apiService.Appointments.getAll();
       console.log(appointments);
-    });
+      let services = await apiService.Services.getAll();
+      console.log(services);
+      let artists = await apiService.Artists.getAll();
+      console.log(artists);
+
+      let createdAppointment = await apiService.Appointments.create({
+        artist: 1,
+        provided_service: 1,
+        customer: 1, // NOTE: will be found by token,
+      });
+      console.log(createdAppointment);
+    }
+    getAppointments();
+
   }, []);
 
   return (
