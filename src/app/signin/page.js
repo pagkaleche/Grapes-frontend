@@ -5,21 +5,34 @@ import { useAppDispatch } from "@/store/store";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import { APIService } from "@/lib/APIService";
+import { useState } from "react";
 import { setToken } from "@/store/authSlice";
 
 function SignIn() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const apiService = new APIService();
 
-  const dispatch = useAppDispatch();
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    router.push("/");
-    let email = "artem@artem.artem";
-    let password = "ScaryToy";
-    let response = await apiService.Auth.login(email, password);
-    dispatch(setToken(response.token));
+    if (!email || !password) {
+      throw new Error('no email or password');
+    }
+
+    try {
+      let authenticationResponse = await apiService.Auth.login(email, password);
+      console.log(authenticationResponse);
+      dispatch(setToken(authenticationResponse.token));
+      router.push("/");
+    }
+    catch (exc) {
+      console.error(exc);
+      throw exc;
+    }
   };
 
   return (
@@ -51,6 +64,7 @@ function SignIn() {
                 type="email"
                 required
                 autoComplete="email"
+                onChange={(e) => { setEmail(e.target.value)}}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
               />
             </div>
@@ -72,6 +86,7 @@ function SignIn() {
                 type="password"
                 required
                 autoComplete="current-password"
+                onChange={(e) => { setPassword(e.target.value)}}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
               />
             </div>
