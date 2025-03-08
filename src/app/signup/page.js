@@ -1,13 +1,40 @@
 "use client";
 
+import { useAppDispatch } from "@/store/store";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
+import { APIService } from "@/lib/APIService";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { setToken } from "@/store/authSlice";
 
-export default function SignIn() {
+function SignUp() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const apiService = new APIService();
+
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    router.push("/");
+    if (!email || !password) {
+      throw new Error('no email or password');
+    }
+
+    try {
+      let registrationResponse = await apiService.Auth.register(email, password);
+      console.log(registrationResponse);
+
+      let authenticationResponse = await apiService.Auth.login(email, password);
+      dispatch(setToken(authenticationResponse.token));
+      router.push("/");
+    }
+    catch (exc) {
+      console.error(exc);
+      throw exc;
+    }
   };
   return (
     <>
@@ -19,7 +46,7 @@ export default function SignIn() {
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white-900">
-            Sign in
+            Sign Up
           </h2>
         </div>
 
@@ -39,6 +66,7 @@ export default function SignIn() {
                   type="email"
                   required
                   autoComplete="email"
+                  onChange={(e) => { setEmail(e.target.value)}}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
                 />
               </div>
@@ -60,6 +88,7 @@ export default function SignIn() {
                   type="password"
                   required
                   autoComplete="current-password"
+                  onChange={ (e) => setPassword(e.target.value)}
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-500 sm:text-sm/6"
                 />
               </div>
@@ -71,7 +100,7 @@ export default function SignIn() {
                 className="flex w-full justify-center rounded-md bg-gray-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-gray-200 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
                 onClick={handleSubmit}
               >
-                Sign in
+                Sign Up
               </button>
             </div>
           </form>
@@ -88,5 +117,14 @@ export default function SignIn() {
         </div>
       </div>
     </>
+  );
+}
+
+
+export default function Root() {
+  return (
+    <Provider store={store}>
+      <SignUp />
+    </Provider>
   );
 }
