@@ -5,23 +5,23 @@ export class BaseAPIService {
     this.endpoint = endpoint;
   }
 
-  async getAll() {
+  async getAll(token = null) {
     return APIClient.request(`${this.endpoint}/`);
   }
 
-  async getById(id) {
+  async getById(id, token = null) {
     return APIClient.request(`${this.endpoint}/${id}`);
   }
 
-  async create(data) {
-    return APIClient.request(`${this.endpoint}/`, "POST", data);
+  async create(data, token = null) {
+    return APIClient.request(`${this.endpoint}/`, "POST", data, token);
   }
 
-  async update(id, data) {
-    return APIClient.request(`${this.endpoint}/${id}/`, "PUT", data);
+  async update(id, data, token = null) {
+    return APIClient.request(`${this.endpoint}/${id}/`, "PUT", data, token);
   }
 
-  async delete(id) {
-    return APIClient.request(`${this.endpoint}/${id}/`, "DELETE");
+  async delete(id, token = null) {
+    return APIClient.request(`${this.endpoint}/${id}/`, "DELETE", null, token);
   }
 }
