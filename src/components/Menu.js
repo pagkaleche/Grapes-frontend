@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Popover,
   PopoverButton,
@@ -8,6 +8,7 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { MobileMenu } from "./MobileMenu";
+import { usePathname } from "next/navigation";
 
 const navigation = {
   categories: [
@@ -23,7 +24,7 @@ const navigation = {
         {
           name: "Tattoo",
           href: "/gallery/Tattoo-Studio",
-          imageSrc: "/images/gallery/tat1.jpg",
+          imageSrc: "/images/tat1.jpg",
           imageAlt: "Artist applying tattoo to a client.",
         },
         {
@@ -43,17 +44,30 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Artists", href: "#artists" },
-    { name: "Location", href: "#location-section" },
+    { name: "Artists", href: "/artists" },
+    { name: "Location", href: "/#location-section" },
   ],
 };
 
-const signIn = [
-  { name: "Sign in", href: "/sign-in" },
+const registration = [
+  { name: "Sign In", href: "/signin" },
+  { name: "Sign Up", href: "/signup" },
 ];
 
 export const Menu = () => {
   const [fakeOpen, setfakeOpen] = useState(false);
+  const [registrationLink, setRegistrationLink] = useState(registration[0]);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/signin") {
+      setRegistrationLink(registration[1]);
+    } else {
+      setRegistrationLink(registration[0]);
+    }
+  }, [pathname]);
+
   return (
     <>
       <MobileMenu navigation={navigation} />
@@ -163,16 +177,14 @@ export const Menu = () => {
                 </div>
               </div>
               <div className="hidden lg:flex flex-1 items-center justify-end gap-4">
-                {signIn.map((item) => (
-                  <div className="group relative flex items-center justify-center text-sm font-medium text-white-700 transition-colors duration-200 ease-out hover:text-red-400 data-[open]:text-white" key={item.name}>
-                    <a
-                      href={item.href}
-                      className="text-sm font-medium text-white-700 hover:text-gray-500"
-                    >
-                      {item.name}
-                    </a>
-                  </div>
-                ))}
+                <div className="group relative flex items-center justify-center text-sm font-medium text-white-700 transition-colors duration-200 ease-out hover:text-red-400 data-[open]:text-white">
+                  <a
+                    href={registrationLink.href}
+                    className="text-sm font-medium text-white-700 hover:text-gray-500"
+                  >
+                    {registrationLink.name}
+                  </a>
+                </div>
                 <button
                   type="button"
                   className="p-1 text-white-700 hover:text-gray-500 border-2 border-white "
