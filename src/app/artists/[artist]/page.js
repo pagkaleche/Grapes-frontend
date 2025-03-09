@@ -2,18 +2,33 @@
 import { motion } from "framer-motion";
 import { containerVariants, childVariants } from "@components/Variants";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArtistHeader from "@/components/ArtistHeader";
+import { APIService } from "@/lib/APIService";
 
-export default function page() {
+export default function ArtistsSection() {
   const params = useParams();
-  const { artist } = params;
-  const imageCount = 10;
-  const getImagePath = (imageName) => `/images/artist/${artist}.png`;
-  const imageIndices = Array.from(
-    { length: imageCount },
-    (_, index) => index + 1
-  );
+  const artistId = params.artist;
+
+  const [artist, setArtist] = useState(null);
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    const apiService = new APIService();
+    async function fetchData() {
+      let artist = await apiService.Artists.getById(artistId);
+      console.log("gathered artist", artist);
+      setArtist(artist);
+      let photos = await apiService.Photos.getAll({
+        artist: artistId,
+      });
+      console.log(photos);
+      setPhotos(photos);
+      console.log("gathered photos", photos);
+    }
+    fetchData();
+  }, [artistId]);
+
   const [selectedImage, setSelectedImage] = useState(null);
 
   const openModal = (image) => {
@@ -29,13 +44,13 @@ export default function page() {
     <div className="bg-neutral-950 text-white">
       <motion.div
         className="relative bg-cover bg-center h-4/6 flex items-center justify-center pt-16"
-        style={{ backgroundImage: `url('/images/gallery/${artist}.png')` }}
+        style={{ backgroundImage: artist?.image }}
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-80 z-0"></div>
-        <ArtistHeader name={artist}/>
+        <ArtistHeader artist={artist} />
       </motion.div>
 
       <motion.div
@@ -45,20 +60,20 @@ export default function page() {
         whileInView="visible"
         viewport={{ once: false }}
       >
-        {imageIndices.length > 0 ? (
+        {photos.length > 0 ? (
           <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8">
-            {imageIndices.map((index) => (
+            {photos.map((photo) => (
               <motion.div
-                key={index}
+                key={photo.id}
                 className="group cursor-pointer"
                 variants={childVariants}
                 whileHover={{ scale: 1.05 }}
-                onClick={() => openModal(getImagePath(index))}
+                onClick={() => openModal(photo.image)}
               >
                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
                   <img
-                    src={getImagePath(index)}
-                    alt={`image ${artist}`}
+                    src={photo.image}
+                    alt={photo.description}
                     className="object-cover object-center sm:w-48 md:w-64 lg:w-80 h-20 w-20 md:h-52 lg:h-64 group-hover:opacity-75 transition-opacity duration-300"
                     loading="lazy"
                     width={256}
@@ -70,7 +85,8 @@ export default function page() {
           </motion.div>
         ) : (
           <p className="text-center text-gray-400">
-            No items available in the {category} category yet. Check back later!
+            No items available for the {artist?.user.first_name} category yet.
+            Check back later!
           </p>
         )}
       </motion.div>

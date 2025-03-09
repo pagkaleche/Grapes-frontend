@@ -7,5 +7,6 @@ export class APIService {
     this.Artists = new BaseAPIService("artists");
     this.Services = new BaseAPIService("services");
     this.Appointments = new BaseAPIService("appointments");
+    this.Photos = new BaseAPIService("photos");
   }
 }

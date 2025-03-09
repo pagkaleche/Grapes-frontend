@@ -4,7 +4,12 @@ import { BASE_API_URL } from "./Constants";
 const token = null;
 
 export class APIClient {
-  static async request(endpoint, method = "GET", body = null) {
+  static async request({
+    endpoint,
+    method = "GET",
+    body = null,
+    params = null,
+  }) {
     let headers = {
       "Content-Type": "application/json",
     };
@@ -22,7 +27,13 @@ export class APIClient {
       options.body = JSON.stringify(body);
     }
 
-    let response = await fetch(`${BASE_API_URL}/${endpoint}`, options);
+    var url = `${BASE_API_URL}/${endpoint}`;
+
+    if (params) {
+      url = `${url}?${new URLSearchParams(params)}`;
+    }
+
+    let response = await fetch(url, options);
 
     if (method === "DELETE") {
       return {};
