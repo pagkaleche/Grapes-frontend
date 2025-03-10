@@ -3,11 +3,14 @@
 import { motion } from 'framer-motion';
 import { containerVariants, childVariants } from '@components/Variants';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect, use } from 'react';
+import { APIService } from "@/lib/APIService";
 
 const CategoryPage = () => {
     const params = useParams();
     const { category } = params;
+    const [categoryName, setCategoryName] = useState('');
+    const [categoryImage, setCategoryImage] = useState([]);
     const imageCount = 10;
     const getImagePath = (imageName) => `/images/gallery/${category}/${imageName}.jpg`;
     const imageIndices = Array.from({ length: imageCount }, (_, index) => index + 1);
@@ -23,18 +26,35 @@ const CategoryPage = () => {
         }
     };
 
+    useEffect(() => {
+        const apiService = new APIService();
+
+        async function getServices() {
+            let services = await apiService.Services.getAll();
+            const matchedService = services.find(service => service.id.toString() === category);
+
+            if (matchedService) {
+                setCategoryName(matchedService.name);
+                setCategoryImage(matchedService.image);
+            } else {
+                setCategoryName('Unknown Category');
+            }
+        }
+        getServices();
+    }, [category]);
+
     return (
         <div className="bg-neutral-950 text-white">
             <motion.div
                 className="relative bg-cover bg-center h-64 flex items-center justify-center"
-                style={{ backgroundImage: `url('/images/gallery/${category}.jpg')` }}
+                style={{ backgroundImage: `url(${categoryImage})` }}
                 initial="hidden"
                 animate="visible"
                 variants={containerVariants}
             >
                 <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-80 z-0"></div>
                 <h1 className="text-4xl font-bold uppercase text-center text-white p-6 z-10">
-                    {category} Gallery
+                    {categoryName} Gallery
                 </h1>
             </motion.div>
 
@@ -57,8 +77,8 @@ const CategoryPage = () => {
                             >
                                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
                                     <img
-                                        src={getImagePath(index)}
-                                        alt={`${category} image ${index}`}
+                                        src='https://via.placeholder.com/150'
+                                        // alt={`${category} image ${index}`}
                                         className="object-cover object-center sm:w-48 md:w-64 lg:w-80 h-20 w-20 md:h-52 lg:h-64 group-hover:opacity-75 transition-opacity duration-300"
                                         loading='lazy'
                                         width={256}
@@ -70,7 +90,7 @@ const CategoryPage = () => {
                     </motion.div>
                 ) : (
                     <p className="text-center text-gray-400">
-                        No items available in the {category} category yet. Check back later!
+                        No photos available in the {category} category yet. Check back later!
                     </p>
                 )}
             </motion.div>
