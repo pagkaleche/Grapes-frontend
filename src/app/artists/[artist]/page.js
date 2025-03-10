@@ -17,14 +17,11 @@ export default function ArtistsSection() {
     const apiService = new APIService();
     async function fetchData() {
       let artist = await apiService.Artists.getById(artistId);
-      console.log("gathered artist", artist);
       setArtist(artist);
       let photos = await apiService.Photos.getAll({
         artist: artistId,
       });
-      console.log(photos);
       setPhotos(photos);
-      console.log("gathered photos", photos);
     }
     fetchData();
   }, [artistId]);
@@ -61,11 +58,14 @@ export default function ArtistsSection() {
         viewport={{ once: false }}
       >
         {photos.length > 0 ? (
-          <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8">
+          <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8"
+            >
             {photos.map((photo) => (
               <motion.div
                 key={photo.id}
                 className="group cursor-pointer"
+                // initial="hidden"
+                animate="visible"
                 variants={childVariants}
                 whileHover={{ scale: 1.05 }}
                 onClick={() => openModal(photo.image)}
