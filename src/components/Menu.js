@@ -39,7 +39,6 @@ export const Menu = () => {
 
     async function getServices() {
       let services = await apiService.Services.getAll();
-      console.log("services", services);
       let categories = [
         {
           name: "Gallery",
@@ -49,7 +48,7 @@ export const Menu = () => {
       for (let service of services) {
         categories[0].featured.push({
           name: service.name,
-          href: `/gallery/?artist__available_services=${service.id}`,
+          href: `/gallery/${service.id}`,
           imageSrc: service.image,
           imageAlt: service.description,
         });
@@ -94,7 +93,7 @@ export const Menu = () => {
                               {category.name}
                               <span
                                 aria-hidden="true"
-                                className="absolute inset-x-0 -bottom-px z-20 h-0.5 transition duration-200 ease-out group-data-[open]:bg-black"
+                                className="absolute inset-x-0 -bottom-px z-10 h-0.5 transition duration-200 ease-out group-data-[open]:bg-black"
                               />
                             </PopoverButton>
                           </div>
@@ -103,12 +102,10 @@ export const Menu = () => {
                             transition
                             className="group absolute inset-x-0 top-full z-10 bg-white text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
                           >
-                            {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                             <div
                               aria-hidden="true"
                               className="absolute inset-0 top-1/2 bg-white shadow"
                             />
-                            {/* Fake border when menu is open */}
                             <div
                               aria-hidden="true"
                               className="absolute inset-0 top-0 mx-auto h-px max-w-7xl px-8"
