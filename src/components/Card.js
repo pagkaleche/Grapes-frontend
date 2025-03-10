@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { childVariants } from './Variants';
 
@@ -7,15 +6,13 @@ const Card = ({ artist }) => {
     <a className="group hover:opacity-100" href={`artists/${artist.id}`}>
       <motion.div
         variants={childVariants}
-        initial="hidden"
-        animate="visible"
         className="relative max-w-full min-h-[250px] lg:min-h-[350px] overflow-hidden shadow-lg mb-4"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent group-hover:opacity-0 opacity-80 z-10"></div>
-        <Image
+        <img
           src={artist.image}
           alt={`${artist.user?.first_name || "Unknown"}'s image`}
-          fill
+          fill="true"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ objectFit: "cover" }}
           className="absolute top-0 left-0 w-full h-full z-0 transform transition-transform duration-300 ease-in-out group-hover:scale-110"
