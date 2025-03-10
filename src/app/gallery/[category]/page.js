@@ -43,6 +43,54 @@ const CategoryPage = () => {
         getServices();
     }, [category]);
 
+    useEffect(() => {
+        const apiService = new APIService();
+
+        async function fetchPhotos() {
+            try {
+                let photos = await apiService.Photos.getAll();  // Fetch photos
+                console.log("Fetched photos:", photos);
+
+                // Check if photos array contains image URLs
+                if (Array.isArray(photos) && photos.length > 0) {
+                    console.log("First photo URL:", photos[0].image);
+                } else {
+                    console.warn("No photos found in API response.");
+                }
+            } catch (error) {
+                console.error("Error fetching photos:", error);
+            }
+        }
+
+        fetchPhotos();
+    }, []);
+
+
+    // const artistId = [5, 2, 3];
+
+    // useEffect(() => {
+    //     const apiService = new APIService();
+
+    //     async function fetchData() {
+    //         try {
+    //             let artist = await apiService.Artists.getById(artistId);
+    //             console.log("gathered artist:", artist);
+
+    //             let photos = await apiService.Photos.getAll({
+    //                 artist: artistId,
+    //             });
+    //             console.log("gathered photos:", photos);
+    //         } catch (error) {
+    //             console.error("Error fetching data:", error);
+    //         }
+    //     }
+
+    //     fetchData();
+    // }, [JSON.stringify(artistId)]); 
+
+
+
+
     return (
         <div className="bg-neutral-950 text-white">
             <motion.div
