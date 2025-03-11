@@ -48,7 +48,7 @@ const CategoryPage = () => {
         async function fetchData() {
             try {
                 let photos = await apiService.Photos.getAll({
-                    service: category,
+                    artist__available_services: category,
                 });
                 const imageUrls = photos.map(photo => photo.image);
                 setPhotos(imageUrls);
