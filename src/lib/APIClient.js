@@ -1,8 +1,5 @@
 import { BASE_API_URL } from "./Constants";
 
-// TODO: I suggest to get token from storage. localStorage, redux, useContext - whatever
-const token = null;
-
 export class APIClient {
   static async request({
     endpoint,
