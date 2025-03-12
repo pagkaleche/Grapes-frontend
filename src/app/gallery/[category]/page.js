@@ -3,14 +3,16 @@
 import { motion } from 'framer-motion';
 import { containerVariants, childVariants } from '@components/Variants';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { APIService } from "@/lib/APIService";
 
 const CategoryPage = () => {
     const params = useParams();
     const { category } = params;
-    const imageCount = 10;
-    const getImagePath = (imageName) => `/images/gallery/${category}/${imageName}.jpg`;
-    const imageIndices = Array.from({ length: imageCount }, (_, index) => index + 1);
+    const [categoryName, setCategoryName] = useState('');
+    const [categoryImage, setCategoryImage] = useState([]);
+    const [photos, setPhotos] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
 
     const openModal = (image) => {
@@ -23,18 +25,59 @@ const CategoryPage = () => {
         }
     };
 
+    useEffect(() => {
+        const apiService = new APIService();
+
+        async function getServices() {
+            let services = await apiService.Services.getAll();
+            const matchedService = services.find(service => service.id.toString() === category);
+
+            if (matchedService) {
+                setCategoryName(matchedService.name);
+                setCategoryImage(matchedService.image);
+            } else {
+                setCategoryName('Unknown Category');
+            }
+        }
+        getServices();
+    }, [category]);
+
+    useEffect(() => {
+        const apiService = new APIService();
+
+        async function fetchData() {
+            try {
+                let photos = await apiService.Photos.getAll({
+                    artist__available_services: category,
+                });
+                const imageUrls = photos.map(photo => photo.image);
+                setPhotos(imageUrls);
+            } catch (error) {
+                console.error("Error fetching photos:", error);
+            }
+        }
+
+        fetchData();
+    }, [category]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsVisible(true);
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="bg-neutral-950 text-white">
             <motion.div
                 className="relative bg-cover bg-center h-64 flex items-center justify-center"
-                style={{ backgroundImage: `url('/images/gallery/${category}.jpg')` }}
-                initial="hidden"
-                animate="visible"
+                style={{ backgroundImage: `url(${categoryImage})` }}
                 variants={containerVariants}
             >
                 <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-80 z-0"></div>
                 <h1 className="text-4xl font-bold uppercase text-center text-white p-6 z-10">
-                    {category} Gallery
+                    {categoryName} Gallery
                 </h1>
             </motion.div>
 
@@ -45,20 +88,23 @@ const CategoryPage = () => {
                 whileInView="visible"
                 viewport={{ once: false }}
             >
-                {imageIndices.length > 0 ? (
-                    <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8">
-                        {imageIndices.map((index) => (
+                {photos.length > 0 ? (
+                    <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate={isVisible ? 'visible' : 'hidden'}>
+                        {photos.map((image, index) => (
                             <motion.div
                                 key={index}
                                 className="group cursor-pointer"
                                 variants={childVariants}
                                 whileHover={{ scale: 1.05 }}
-                                onClick={() => openModal(getImagePath(index))}
+                                onClick={() => openModal(image)}
                             >
                                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
                                     <img
-                                        src={getImagePath(index)}
-                                        alt={`${category} image ${index}`}
+                                        src={image}
+                                        alt={`Image ${index + 1}`}
                                         className="object-cover object-center sm:w-48 md:w-64 lg:w-80 h-20 w-20 md:h-52 lg:h-64 group-hover:opacity-75 transition-opacity duration-300"
                                         loading='lazy'
                                         width={256}
@@ -70,7 +116,7 @@ const CategoryPage = () => {
                     </motion.div>
                 ) : (
                     <p className="text-center text-gray-400">
-                        No items available in the {category} category yet. Check back later!
+                        No photos available in the {categoryName} category yet. Check back later!
                     </p>
                 )}
             </motion.div>

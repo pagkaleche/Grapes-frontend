@@ -1,7 +1,7 @@
 import React from "react";
 
-export default function ArtistHeader({ image, name, skill }) {
-  const UpperCaseName = name.toUpperCase();
+export default function ArtistHeader({ artist }) {
+  const UpperCaseName = artist?.user.first_name;
   return (
     <div className="flex justify-center items-end text-center sm:block">
       <div className="inline-block text-left border-white border-2 rounded-lg overflow-hidden align-bottom transition-all transform shadow-2xl sm:align-middle sm:max-w-xl sm:w-full">
@@ -10,14 +10,14 @@ export default function ArtistHeader({ image, name, skill }) {
             <div className="mt-4 mr-auto mb-4 ml-auto  max-w-lg">
               <div className="flex flex-col items-center pt-6 pr-6 pb-6 pl-6">
                 <img
-                  src={`/images/artist/${name}.png`}
+                  src={artist?.image}
                   className="flex-shrink-0 object-cover object-center btn- flex w-80 h-80 mr-auto mb-2 ml-auto rounded-full shadow-xl"
                 />
                 <p className="mt-8 text-2xl font-semibold leading-none text-white tracking-tighter lg:text-3xl">
                   {UpperCaseName}
                 </p>
                 <p className="mt-3 text-base leading-relaxed text-center text-white">
-                    A skilled tattoo artist specializing in custom designs, blending creativity and precision to create meaningful body art.
+                  {artist?.description}
                 </p>
                 <div className="w-full mt-6">
                   <a

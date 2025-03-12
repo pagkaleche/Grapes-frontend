@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
+    domains: ["40.233.78.121"],
+  },
+  async rewrites() {
+    return [
       {
-        protocol: 'http',
-        hostname: '40.233.78.121',
-        port: '',
-        pathname: '/media/**',
-        search: '',
+        source: '/api/:path*',  
+        destination: 'https://40.233.78.121/api/:path*', 
       },
-    ],
+    ];
   },
 };
 

@@ -9,51 +9,16 @@ import {
 } from "@headlessui/react";
 import { MobileMenu } from "./MobileMenu";
 import { usePathname } from "next/navigation";
-
-const navigation = {
-  categories: [
-    {
-      name: "Gallery",
-      featured: [
-        {
-          name: "Photo Studio",
-          href: "/gallery/Photo-Studio",
-          imageSrc: "/images/tat2.jpg",
-          imageAlt: "Photo studio with professional lighting and equipment.",
-        },
-        {
-          name: "Tattoo",
-          href: "/gallery/Tattoo-Studio",
-          imageSrc: "/images/tat1.jpg",
-          imageAlt: "Artist applying tattoo to a client.",
-        },
-        {
-          name: "Makeup",
-          href: "/gallery/Makeup-Studio",
-          imageSrc: "/images/makeup1.jpg",
-          imageAlt:
-            "Makeup accessories including brushes, lipstick, eye shadow, and nail polish.",
-        },
-        {
-          name: "Nail Art",
-          href: "/gallery/Nail-Art-Studio",
-          imageSrc: "/images/nail1.png",
-          imageAlt: "Collection of nail colors and nail art tools.",
-        },
-      ],
-    },
-  ],
-  pages: [
-    { name: "Artists", href: "/artists" },
-    { name: "Appointments", href: "/appointments" },
-    { name: "Booking", href: "/booking" },
-    { name: "Location", href: "/#location-section" },
-  ],
-};
+import { APIService } from "@/lib/APIService";
 
 const registration = [
   { name: "Sign In", href: "/signin" },
   { name: "Sign Up", href: "/signup" },
+];
+
+const pages = [
+  { name: "Artists", href: "/artists" },
+  { name: "Location", href: "/#location-section" },
 ];
 
 export const Menu = () => {
@@ -62,17 +27,40 @@ export const Menu = () => {
 
   const pathname = usePathname();
 
+  const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     if (pathname === "/signin") {
       setRegistrationLink(registration[1]);
     } else {
       setRegistrationLink(registration[0]);
     }
+    const apiService = new APIService();
+
+    async function getServices() {
+      let services = await apiService.Services.getAll();
+      let categories = [
+        {
+          name: "Gallery",
+          featured: [],
+        },
+      ];
+      for (let service of services) {
+        categories[0].featured.push({
+          name: service.name,
+          href: `/gallery/${service.id}`,
+          imageSrc: service.image,
+          imageAlt: service.description,
+        });
+      }
+      setCategories(categories);
+    }
+    getServices();
   }, [pathname]);
 
   return (
     <>
-      <MobileMenu navigation={navigation} />
+      <MobileMenu categories={categories} pages={pages} />
       <header className="hidden lg:block relative">
         <nav
           aria-label="Top"
@@ -98,14 +86,14 @@ export const Menu = () => {
                           />
                         </a>
                       </div>
-                      {navigation.categories.map((category) => (
+                      {categories.map((category) => (
                         <Popover key={category.name} className="flex">
                           <div className="relative flex">
                             <PopoverButton className="group relative flex items-center justify-center text-sm font-medium text-white-700 transition-colors duration-200 ease-out hover:text-red-400 data-[open]:text-white">
                               {category.name}
                               <span
                                 aria-hidden="true"
-                                className="absolute inset-x-0 -bottom-px z-20 h-0.5 transition duration-200 ease-out group-data-[open]:bg-black"
+                                className="absolute inset-x-0 -bottom-px z-10 h-0.5 transition duration-200 ease-out group-data-[open]:bg-black"
                               />
                             </PopoverButton>
                           </div>
@@ -114,12 +102,10 @@ export const Menu = () => {
                             transition
                             className="group absolute inset-x-0 top-full z-10 bg-white text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
                           >
-                            {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                             <div
                               aria-hidden="true"
                               className="absolute inset-0 top-1/2 bg-white shadow"
                             />
-                            {/* Fake border when menu is open */}
                             <div
                               aria-hidden="true"
                               className="absolute inset-0 top-0 mx-auto h-px max-w-7xl px-8"
@@ -165,7 +151,7 @@ export const Menu = () => {
                         </Popover>
                       ))}
 
-                      {navigation.pages.map((page) => (
+                      {pages.map((page) => (
                         <a
                           key={page.name}
                           href={page.href}
