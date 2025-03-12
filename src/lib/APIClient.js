@@ -6,6 +6,7 @@ export class APIClient {
     method = "GET",
     body = null,
     params = null,
+    token = null,
   }) {
     let headers = {
       "Content-Type": "application/json",
