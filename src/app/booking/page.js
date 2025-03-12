@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Calendar from "react-calendar";
 import "./index.scss";
 import { APIService } from "@/lib/APIService";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
@@ -17,29 +17,114 @@ function Booking() {
   const router = useRouter();
   const [selectedArtist, setSelectedArtist] = useState({ id: 1 });
   const [selectedService, setSelectedService] = useState({ id: 1 });
-  const [selectedDate, setSelectedDate] = useState("2023-01-01T00:00Z");
+  const [selectedDate, setSelectedDate] = useState(''); //"2023-01-01T00:00Z"
+  const [artists, setArtists] = useState([]);
+  const [services, setServices] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [selectedTime, setSelectedTime] = useState('');
+
+
+  const slots = ['10:00 a.m.', '11:00 a.m.', '12:00 p.m.', '13:00 p.m.', '14:00 p.m.', '15:00 p.m.', '16:00 p.m.', '17:00 p.m.'];
 
   const handleSubmit = async (event) => {
+    // Format selectedDate to 'YYYY-MM-DD' and selectedTime to 'HH:mm'
+    const formattedDate = selectedDate.toISOString().split('T')[0];  // 'YYYY-MM-DD'
+    const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
+    console.log(`${formattedDate}T${cleanTime}Z`);
+
     let createdAppointment = await apiService.Appointments.create(
       {
-        provided_at: selectedDate,
+        provided_at: `${formattedDate}T${cleanTime}Z`,
         artist: selectedArtist.id,
         provided_service: selectedService.id,
       },
       token,
     );
-    console.log(createdAppointment);
+    console.log("Created Appointment: " + createdAppointment);
     router.push("/");
   };
 
+  // Handle date selection
+  const handleDayPress = (date) => {
+    console.log("handleDayPress triggered", date);
+    const dayOfWeek = date.getDay();
+    if (dayOfWeek === 6 || dayOfWeek === 0) {
+        setAvailableSlots([]);
+        setSelectedDate(date);
+    } else {
+        setSelectedDate(date);
+        setAvailableSlots(slots);
+    }
+    setSelectedTime(null);
+  };
+
+  const handleSelectSlot = (slot) => {
+    setSelectedTime(slot);
+  }
+
+
+
+  // Function to apply custom styles to the selected date
+  const tileClassName = ({ date, view }) => {
+    // Only apply custom styling for month view
+    if (view === 'month' && selectedDate) {
+      const selectedDateString = selectedDate.toDateString();  // Convert selectedDate to a string for comparison
+      if (date.toDateString() === selectedDateString) {
+        return 'selected-day';  // Add class to selected date
+      }
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Wait for both Promises to resolve
+        let servicesArray = await apiService.Services.getAll();
+        let artistsArray = await apiService.Artists.getAll();
+        setArtists(artistsArray);
+        setServices(servicesArray);
+        // Log the actual arrays
+        console.log("Services Array: ", servicesArray);
+        console.log("Artists Array: ", artistsArray);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    fetchData();
+  }, []); // Empty dependency array to only run on mount
+  
   return (
     <div className="container">
       <div className="selectArtist">
         <h1>Choose an Artist and a Service</h1>
         <label>Choose an Artist</label>
-        <select id="selectArtist"></select>
+        <select 
+        id="selectArtist"
+        value={selectedArtist.id}
+        onChange={(e) => setSelectedArtist({ id: e.target.value })}
+        >
+            <option>Select Artist</option>
+            {artists.map((artist) => (
+                <option key={artist.id} value={artist.id}>
+                    {artist.user.first_name}
+                </option>
+            ))}
+        </select>
         <label>Choose a Service</label>
-        <select id="selectService"></select>
+        <select 
+        id="selectService"
+        value={selectedService.id}
+        onChange={(e) => setSelectedService({ id: e.target.value })}
+        >
+            <option>Select Service</option>
+            {services.map((service) => (
+                <option key={service.id} value={service.id}>
+                    {service.name}
+                </option>
+            ))}
+        </select>
       </div>
       <div className="borderBottom"></div>
       <div className="clientDetails">
@@ -72,7 +157,7 @@ function Booking() {
               <label>Add images of Desired Work *</label>
               <input id="imageUpload" name="image" type="file" />
             </div>
-          </div>
+          </div>    
         </div>
         <div className="borderBottom"></div>
         <div className="scheduleAppointment">
@@ -81,19 +166,49 @@ function Booking() {
             Checkout the availabitliy and book the date and time that works for
             you
           </h2>
-          <div className="selectDateAndTime">
-            <Calendar />
-          </div>
+          <div className="AppointmentInnerContainer">
+            <div className="selectDateAndTime">
+                <Calendar 
+                onClickDay={handleDayPress}
+                tileClassName={tileClassName} 
+                monthFormat={'yyyy MM'}
+                />
+            </div>
+            {selectedDate && (
+                <div className="selectTime">
+                    <h2>Select Time</h2>
+                    {availableSlots.length > 0 ? (
+                        <div className="slotList">
+                            {availableSlots.map((slot) => (
+                                <button
+                                    key={slot}
+                                    onClick={() => handleSelectSlot(slot)}
+                                    className='slotButton'
+                                    style={{
+                                        backgroundColor: selectedTime === slot ? 'white' : 'black',
+                                        color: selectedTime === slot ? 'black' : 'white',
+                                      }}
+                                >
+                                    {slot}
+                                </button>
+                            ))}
+                        </div>
+                    ) : (
+                            <p style={{fontSize: '1.5rem'}}>Not available time slots for this day.</p>
+                    )}
+                </div>
+            )}
+            </div>
+
         </div>
       </div>
 
-      <div>
+      <div className="next-btn">
         <button
           type="submit"
-          className="flex w-full justify-center rounded-md bg-gray-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-gray-200 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
           onClick={handleSubmit}
         >
-          Sign Up
+          NEXT
         </button>
       </div>
     </div>

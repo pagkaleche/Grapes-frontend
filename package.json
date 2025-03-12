@@ -20,8 +20,8 @@
     "react": "^19.0.0",
     "react-calendar": "^5.1.0",
     "react-dom": "^19.0.0",
-    "sass": "^1.85.1",
     "react-redux": "^9.2.0",
+    "sass": "^1.85.1",
     "three": "^0.172.0"
   },
   "devDependencies": {

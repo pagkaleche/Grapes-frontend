@@ -153,11 +153,111 @@ body {
     }
 
     .scheduleAppointment {
+
+        h1 {
+            margin: 35px;
+        }
+
         h2 {
             font-size: 1.9rem;
         }
+        .react-calendar {
+            width: 350px;
+            font-size: 1.5rem;
+        }
+
+        .react-calendar__navigation {
+            border-bottom: 2px solid white;
+            margin-bottom: 40px;
+        }
+        
+        .react-calendar__month-view__weekdays__weekday {
+            abbr {
+                font-size: 1.5rem;
+            }
+        }
+
     }
 
+    .AppointmentInnerContainer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 125px;     
+    }
+
+    .selectTime {
+        display: flex;
+        flex-direction: column;
+        // margin-top: 200px;  
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid white;
+            margin-bottom: 40px;
+        }
+    }
+    
+    .slotList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+        gap: 15px; /* Adds space between columns and rows */
+        row-gap: 20px; /* Adds space between rows specifically */
+        justify-items: center; /* Centers buttons in each grid cell */
+        max-width: 350px;
+    }
+    
+    .slotButton {
+        width: 175px; /* Make each button fill its grid cell */
+        padding: 5px 0; /* Adjust vertical padding for consistent size */
+        border-radius: 30px;
+        margin-bottom: 10px; /* Space between buttons */
+        gap: 10px;
+        border: 2px solid white;
+        cursor: pointer;
+        font-size: 1.5rem;
+        background-color: black;
+        color: white; /* Default button color */
+        transition: background-color 0.3s ease, color 0.3s ease;
+        text-align: center; /* Centers the text within each button */
+    }
+
+    .slotButtonselected {
+        width: 175px; /* Make each button fill its grid cell */
+        padding: 5px 0; /* Adjust vertical padding for consistent size */
+        border-radius: 30px;
+        margin-bottom: 10px; /* Space between buttons */
+        gap: 10px;
+        border: 2px solid white;
+        cursor: pointer;
+        font-size: 1.5rem;
+        background-color: rgb(44, 27, 197);
+        color: white; /* Default button color */
+        transition: background-color 0.3s ease, color 0.3s ease;
+        text-align: center; /* Centers the text within each button */
+    }
+
+
+    .next-btn {
+        display: flex;
+        justify-content: center; /* Centers the button horizontally */
+        align-items: center; /* Centers the button vertically */
+        width: 100%; /* Ensures the container takes up full width */
+
+        button {
+            background-color: black;
+            border: 2px solid white;
+            height: 4rem;
+            width: 600px;
+            margin-top: 135px;
+            margin-bottom: 50px;
+        }
+    }
+
+    .selected-day {
+        background-color: black !important;  /* Change to your desired color */
+        color: white !important;  /* Ensure the text color is visible on the background */
+        border: 3px solid white;
+        border-radius: 15%;  /* Optional: Makes the selected day a circle */
+      }
 }
 
 
