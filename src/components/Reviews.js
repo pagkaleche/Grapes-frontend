@@ -1,28 +1,20 @@
-import { useState } from "react";
-import StarRating from "./StarRating"; 
+import { useEffect, useState } from "react";
+import StarRating from "./StarRating";
+import { APIService } from "@/lib/APIService";
 
 const ReviewsSection = () => {
-  const mockReviews = [
-    {
-      id: 1,
-      rating: 4,
-      text: "Great product! Really liked the quality.",
-    },
-    {
-      id: 2,
-      rating: 5,
-      text: "Absolutely amazing! Worth every penny.",
-    },
-    {
-      id: 3,
-      rating: 3,
-      text: "It's decent, but could be better in terms of design.",
-    },
-  ];
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [reviewText, setReviewText] = useState("");
 
-  const [reviews, setReviews] = useState(mockReviews); 
-  const [rating, setRating] = useState(0); 
-  const [reviewText, setReviewText] = useState(""); 
+  useEffect(() => {
+    const apiService = new APIService();
+    async function fetchData() {
+      let reviews = await apiService.Reviews.getAll();
+      setReviews(reviews);
+    }
+    fetchData();
+  }, []);
 
   const handleSubmitReview = (e) => {
     e.preventDefault();
@@ -88,7 +80,7 @@ const ReviewsSection = () => {
                   <StarRating rating={review.rating} setRating={() => {}} />
                   <span className="ml-2 text-sm text-gray-500">Rating: {review.rating}</span>
                 </div>
-                <p className="mt-2 text-sm text-gray-600">{review.text}</p>
+                <p className="mt-2 text-sm text-gray-600">{review.description}</p>
               </div>
             ))}
           </div>
