@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { containerVariants, childVariants } from '@components/Variants';
+import ReviewsSection from '@/components/Reviews';
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { APIService } from "@/lib/APIService";
@@ -123,18 +124,25 @@ const CategoryPage = () => {
             {selectedImage && (
                 <div
                     id="modal-background"
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+                    className="fixed inset-0 z-50 bg-black bg-opacity-75 justify-center items-center flex"
                     onClick={closeModal}
                 >
-                    <div className="relative">
-                        <img
-                            src={selectedImage}
-                            alt="Selected"
-                            className="max-w-full max-h-screen rounded-md"
-                        />
+                    <div className="relative flex p-4 bg-black rounded-lg shadow-lg max-w-4xl w-full">
+                        <div className="flex-shrink-0 mr-4 w-2/3 h-auto">
+                            <img
+                                src={selectedImage}
+                                alt="Selected"
+                                className="w-full h-full object-cover rounded-md"
+                            />
+                        </div>
+                        <div className="flex-grow w-3/4 h-auto">
+                            <ReviewsSection />
+                        </div>
                     </div>
                 </div>
+
             )}
+            <ReviewsSection />
         </div>
     );
 };

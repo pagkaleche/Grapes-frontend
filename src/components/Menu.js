@@ -23,11 +23,8 @@ const pages = [
 ];
 
 export const Menu = () => {
-  const [fakeOpen, setfakeOpen] = useState(false);
   const [registrationLink, setRegistrationLink] = useState(registration[0]);
-
   const pathname = usePathname();
-
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -151,12 +148,30 @@ export const Menu = () => {
                           </PopoverPanel>
                         </Popover>
                       ))}
-
                       {pages.map((page) => (
                         <a
                           key={page.name}
                           href={page.href}
-                          className="flex items-center text-sm font-medium text-white-700 hover:text-red-400"
+                          className="flex items-center text-sm font-medium text-white hover:text-red-400"
+                          onClick={(e) => {
+                            if (page.href === "/#location-section") {
+                              e.preventDefault();
+                              if (window.location.pathname === "/") {
+                                const section = document.getElementById("location-section");
+                                if (section) {
+                                  section.scrollIntoView({ behavior: "smooth" });
+                                }
+                              } else {
+                                window.location.href = "/";
+                                setTimeout(() => {
+                                  const section = document.getElementById("location-section");
+                                  if (section) {
+                                    section.scrollIntoView({ behavior: "smooth" });
+                                  }
+                                }, 300);
+                              }
+                            }
+                          }}
                         >
                           {page.name}
                         </a>
