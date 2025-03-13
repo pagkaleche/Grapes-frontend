@@ -8,6 +8,7 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { MobileMenu } from "./MobileMenu";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { APIService } from "@/lib/APIService";
 
@@ -173,12 +174,14 @@ export const Menu = () => {
                     {registrationLink.name}
                   </a>
                 </div>
-                <button
-                  type="button"
-                  className="p-1 text-white-700 hover:text-gray-500 border-2 border-white "
-                >
-                  Appointment
-                </button>
+                <Link href="/booking">
+                  <button
+                    type="button"
+                    className="p-1 text-white hover:text-gray-500 border-2 border-white "
+                  >
+                    Appointment
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
