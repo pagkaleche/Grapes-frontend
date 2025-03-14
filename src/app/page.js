@@ -25,7 +25,7 @@ function Home() {
     >
       <div className="bg-black">
         <main>
-          <Hero />
+          {/* <Hero /> */}
           <AboutSection />
           <ArtistsSection />
           <LocationSection />

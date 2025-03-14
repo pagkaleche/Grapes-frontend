@@ -194,7 +194,7 @@ export const Menu = () => {
                     type="button"
                     className="p-1 text-white hover:text-gray-500 border-2 border-white "
                   >
-                    Appointment
+                    Book an appointment
                   </button>
                 </Link>
               </div>

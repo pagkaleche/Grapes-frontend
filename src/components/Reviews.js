@@ -4,41 +4,85 @@ import { APIService } from "@/lib/APIService";
 
 const ReviewsSection = () => {
   const [reviews, setReviews] = useState([]);
+
   const [rating, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState("");
+  const [reviewDescription, setReviewDescription] = useState("");
+  const [selectedArtist, setSelectedArtist] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+
+  const [artists, setArtists] = useState([]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     const apiService = new APIService();
     async function fetchData() {
       let reviews = await apiService.Reviews.getAll();
       setReviews(reviews);
+      let servicesArray = await apiService.Services.getAll();
+      setServices(servicesArray);
+      let artistsArray = await apiService.Artists.getAll();
+      setArtists(artistsArray);
     }
     fetchData();
   }, []);
 
-  const handleSubmitReview = (e) => {
+  const handleSubmitReview = async (e) => {
     e.preventDefault();
 
-    if (rating === 0 || reviewText.trim() === "") {
+    if (rating === 0 || reviewDescription.trim() === "") {
       alert("Please provide a rating and review.");
       return;
     }
 
+    const apiService = new APIService();
     const newReview = {
       rating,
-      text: reviewText,
-      id: Date.now(),
+      artist: selectedArtist.id,
+      provided_service: selectedService.id,
+      provided_at: null,
+      description: reviewDescription,
     };
 
-    setReviews([newReview, ...reviews]);
-    setReviewText("");
+    let createdReview = await apiService.Reviews.create(
+      newReview,
+    );
+    let reviews = await apiService.Reviews.getAll();
+    setReviews(reviews);
+
+    setReviewDescription("");
     setRating(0);
+    setSelectedArtist(null);
+    setSelectedService(null);
   };
 
   return (
     <div className="p-4 max-w-lg mx-auto">
       <h2 className="text-2xl font-semibold mb-4">Write a Review</h2>
       <form onSubmit={handleSubmitReview}>
+        <label>Choose an Artist</label>
+        <select
+          id="selectArtist"
+          onChange={(e) => setSelectedArtist({ id: e.target.value })}
+        >
+          <option>Select Artist</option>
+          {artists.map((artist) => (
+            <option key={artist.id} value={artist.id}>
+              {artist.user.first_name}
+            </option>
+          ))}
+        </select>
+        <label>Choose a Service</label>
+        <select
+          id="selectService"
+          onChange={(e) => setSelectedService({ id: e.target.value })}
+        >
+          <option>Select Service</option>
+          {services.map((service) => (
+            <option key={service.id} value={service.id}>
+              {service.name}
+            </option>
+          ))}
+        </select>
         <div className="mb-4">
           <label htmlFor="rating" className="block text-sm font-medium text-gray-700">
             Rating:
@@ -52,8 +96,8 @@ const ReviewsSection = () => {
           </label>
           <textarea
             id="review"
-            value={reviewText}
-            onChange={(e) => setReviewText(e.target.value)}
+            value={reviewDescription}
+            onChange={(e) => setReviewDescription(e.target.value)}
             rows="3"
             className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-md text-black"
             placeholder="Write your review here..."
