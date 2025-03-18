@@ -74,7 +74,7 @@ export function Hero() {
               </h1>
               <div className="mt-8 grid grid-cols-2 gap-48 sm:grid-cols-4">
                 <a
-                  href="/page1"
+                  href="/gallery/2"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
@@ -85,7 +85,7 @@ export function Hero() {
                   <span className="mt-2">Photo</span>
                 </a>
                 <a
-                  href="/page2"
+                  href="/gallery/2"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
@@ -96,7 +96,7 @@ export function Hero() {
                   <span className="mt-2">Tattoo</span>
                 </a>
                 <a
-                  href="/page3"
+                  href="/gallery/4"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
@@ -107,7 +107,7 @@ export function Hero() {
                   <span className="mt-2">Makeup</span>
                 </a>
                 <a
-                  href="/page4"
+                  href="/gallery/5"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
