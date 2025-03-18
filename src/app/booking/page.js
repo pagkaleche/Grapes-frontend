@@ -36,13 +36,21 @@ function Booking() {
   const handleSubmit = async (event) => {
     const formattedDate = selectedDate.toISOString().split('T')[0];
     const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
-    
+
     // Create appointment
     let createdAppointment = await apiService.Appointments.create(
       {
         provided_at: `${formattedDate}T${cleanTime}Z`,
         artist: selectedArtist.id,
         provided_service: selectedService.id,
+        message: "",
+        customer_data: {
+          user: {
+            first_name: "Asd!",
+            email: "asdAAAAAAAAAAAAAAAAAAAAAAAAAA@asd.asd",
+          },
+          phone_number: "+123"
+        }
       },
       token
     );
@@ -213,13 +221,13 @@ function Booking() {
       </div>
 
       {/* Modal to show booking confirmation */}
-      <Modal 
-        isOpen={showModal} 
-        onClose={() => { 
-          setShowModal(false); 
-          router.push("/"); 
-        }} 
-        userDetails={userDetails} 
+      <Modal
+        isOpen={showModal}
+        onClose={() => {
+          setShowModal(false);
+          router.push("/");
+        }}
+        userDetails={userDetails}
       />
     </div>
   );
