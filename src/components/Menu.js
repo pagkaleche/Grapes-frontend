@@ -25,7 +25,37 @@ const pages = [
 export const Menu = () => {
   const [registrationLink, setRegistrationLink] = useState(registration[0]);
   const pathname = usePathname();
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([
+    {
+      name: "Gallery",
+      featured: [
+      {
+        name: 'Tattoo',
+        href: `/gallery/1`,
+        imageSrc: '/image/gallery/category/Tattoo.jpg',
+        imageAlt: 'Tattoo',
+      },
+      {
+        name: 'Makeup',
+        href: `/gallery/4`,
+        imageSrc: '/image/gallery/category/Makeup.png',
+        imageAlt: 'Makeup',
+      },
+      {
+        name: 'PhotoStudio',
+        href: `/gallery/2`,
+        imageSrc: '/image/gallery/category/PhotoStudio.jpg',
+        imageAlt: 'Photo Studio',
+      },
+      {
+        name: 'Nail Art',
+        href: `/gallery/5`,
+        imageSrc: '/image/gallery/category/NailArt.png',
+        imageAlt: 'Microblading',
+      }
+    ],
+    },
+  ]);
 
   useEffect(() => {
     if (pathname === "/signin") {
@@ -37,21 +67,21 @@ export const Menu = () => {
 
     async function getServices() {
       let services = await apiService.Services.getAll();
-      let categories = [
+      let newCategories = [
         {
           name: "Gallery",
           featured: [],
         },
       ];
       for (let service of services) {
-        categories[0].featured.push({
+        newCategories[0].featured.push({
           name: service.name,
           href: `/gallery/${service.id}`,
           imageSrc: service.image,
           imageAlt: service.description,
         });
       }
-      setCategories(categories);
+      setCategories(newCategories);
     }
     getServices();
   }, [pathname]);
@@ -157,16 +187,22 @@ export const Menu = () => {
                             if (page.href === "/#location-section") {
                               e.preventDefault();
                               if (window.location.pathname === "/") {
-                                const section = document.getElementById("location-section");
+                                const section =
+                                  document.getElementById("location-section");
                                 if (section) {
-                                  section.scrollIntoView({ behavior: "smooth" });
+                                  section.scrollIntoView({
+                                    behavior: "smooth",
+                                  });
                                 }
                               } else {
                                 window.location.href = "/";
                                 setTimeout(() => {
-                                  const section = document.getElementById("location-section");
+                                  const section =
+                                    document.getElementById("location-section");
                                   if (section) {
-                                    section.scrollIntoView({ behavior: "smooth" });
+                                    section.scrollIntoView({
+                                      behavior: "smooth",
+                                    });
                                   }
                                 }, 300);
                               }

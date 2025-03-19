@@ -8,8 +8,7 @@ import { useState, useEffect } from 'react';
 import { APIService } from "@/lib/APIService";
 
 const CategoryPage = () => {
-    const params = useParams();
-    const { category } = params;
+    const { category } = useParams();
     const [categoryName, setCategoryName] = useState('');
     const [categoryImage, setCategoryImage] = useState([]);
     const [photos, setPhotos] = useState([]);
