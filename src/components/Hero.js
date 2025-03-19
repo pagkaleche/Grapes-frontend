@@ -52,7 +52,7 @@ export function Hero() {
                   <img
                     src="/images/photo.png"
                     alt="Icon 1"
-                    className="h-12 w-12"
+                    className="h-12 w-12 hidden sm:block"
                   />
                   <span className="mt-2">Photo</span>
                 </a>
@@ -63,7 +63,7 @@ export function Hero() {
                   <img
                     src="/images/tattoo.png"
                     alt="Icon 2"
-                    className="h-12 w-12"
+                    className="h-12 w-12 hidden sm:block"
                   />
                   <span className="mt-2">Tattoo</span>
                 </a>
@@ -74,7 +74,7 @@ export function Hero() {
                   <img
                     src="/images/makeup.png"
                     alt="Icon 3"
-                    className="h-12 w-12"
+                    className="h-12 w-12 hidden sm:block"
                   />
                   <span className="mt-2">Makeup</span>
                 </a>
@@ -85,22 +85,11 @@ export function Hero() {
                   <img
                     src="/images/nail.png"
                     alt="Icon 4"
-                    className="h-12 w-12"
+                    className="h-12 w-12 hidden sm:block"
                   />
                   <span className="mt-2">Nails</span>
                 </a>
               </div>
-              {/* appointment and rent */}
-              {/* <div className="mt-24 lg:hidden pt-15 flex flex-row justify-space-between">
-                <div className="flex flex-1 items-center justify-center">
-                  <button
-                    type="button"
-                    className="p-1 text-white-700 hover:text-gray-500 border-2 border-white "
-                  >
-                    Appointment
-                  </button>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
