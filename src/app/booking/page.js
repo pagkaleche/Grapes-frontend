@@ -37,6 +37,7 @@ function Booking() {
     const formattedDate = selectedDate.toISOString().split('T')[0];
     const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
 
+
     // Create appointment
     let createdAppointment = await apiService.Appointments.create(
       {
@@ -101,6 +102,9 @@ function Booking() {
         let artistsArray = await apiService.Artists.getAll();
         setArtists(artistsArray);
         setServices(servicesArray);
+
+        const me = await apiService.Users.me(token);
+        console.log('me', me);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
