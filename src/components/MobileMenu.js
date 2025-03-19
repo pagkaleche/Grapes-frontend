@@ -14,7 +14,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export const MobileMenu = ({ categories, pages }) => {
-  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
       <Dialog
@@ -50,7 +50,7 @@ export const MobileMenu = ({ categories, pages }) => {
                   {categories.map((category) => (
                     <Tab
                       key={category.name}
-                      className="flex-1 whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-base font-medium text-gray-900 data-[selected]:border-indigo-600 data-[selected]:text-indigo-600"
+                      className="flex-1 whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-base font-medium text-gray-900 data-[selected]:border-gray-500 data-[selected]:text-gray-500"
                     >
                       {category.name}
                     </Tab>

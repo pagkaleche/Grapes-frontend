@@ -40,8 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#image
-/public/images/gallery/*
-
 # IDE
 .zed
