@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ArtistHeader from "@/components/ArtistHeader";
 import { APIService } from "@/lib/APIService";
+import { Loading } from "@/components/Loading";
 
 export default function ArtistsSection() {
   const params = useParams();
@@ -12,6 +13,7 @@ export default function ArtistsSection() {
 
   const [artist, setArtist] = useState(null);
   const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const apiService = new APIService();
@@ -22,6 +24,7 @@ export default function ArtistsSection() {
         artist: artistId,
       });
       setPhotos(photos);
+      setLoading(false);
     }
     fetchData();
   }, [artistId]);
@@ -37,6 +40,14 @@ export default function ArtistsSection() {
       setSelectedImage(null);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className="bg-neutral-950 text-white">
       <motion.div
@@ -58,8 +69,7 @@ export default function ArtistsSection() {
         viewport={{ once: false }}
       >
         {photos.length > 0 ? (
-          <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8"
-            >
+          <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8">
             {photos.map((photo) => (
               <motion.div
                 key={photo.id}

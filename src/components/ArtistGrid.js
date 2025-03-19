@@ -3,16 +3,19 @@ import { containerVariants } from "@components/Variants";
 import Card from "@components/Card";
 import { useEffect, useState } from "react";
 import { APIService } from "@/lib/APIService";
+import { Loading } from "./Loading";
 
 const ArtistGrid = () => {
   const [artists, setArtists] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const apiService = new APIService();
     async function getArtists() {
       let artists = await apiService.Artists.getAll();
       setArtists(artists);
+      setLoading(false);
     }
     getArtists();
   }, []);
@@ -24,6 +27,10 @@ const ArtistGrid = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <motion.div
