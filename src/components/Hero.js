@@ -23,39 +23,22 @@ export function Hero() {
       <motion.div
         style={{
           opacity,
-          backgroundSize,
+          backgroundSize: "cover",
           backgroundImage: `url(${heroImage.src})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
         aria-hidden="true"
-        className="absolute inset-0 hidden sm:flex sm:flex-col"
+        className="inset-0 flex flex-col h-screen"
       >
         {/* Background image and overlap */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 hidden sm:flex sm:flex-col"
+          className="inset-0 flex flex-col"
         >
-          <div className="absolute inset-0 bg-black opacity-50" />
+          <div className="absolute inset-0 bg-black opacity-50 h-screen" />
         </div>
         <div className="relative text-center sm:pb-0 sm:h-[60vh] lg:h-screen">
-          {/* Background image and overlap */}
-          {/* <div
-            aria-hidden="true"
-            className="absolute inset-0 flex flex-col sm:hidden"
-          >
-            <div className="relative w-full flex-1 bg-gray-800">
-              <div className="absolute inset-0 overflow-hidden">
-                <Image
-                  src="/images/hero.png"
-                  layout="fill"
-                  style={{ objectFit: "cover", objectPosition: "center" }}
-                  alt=""
-                />
-              </div>
-              <div className="absolute inset-0 bg-black opacity-60" />
-            </div>
-          </div> */}
           <div className="relative h-screen flex flex-col justify-center">
             <div className="bg-black bg-opacity-50 py-6 px-20 rounded h-full w-full mx-auto justify-center items-center flex flex-col">
               <h1 className="text-xl font-bold tracking-tight text-white sm:text-xl md:text-2xl pb-10">
