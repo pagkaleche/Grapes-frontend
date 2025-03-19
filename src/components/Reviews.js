@@ -56,27 +56,30 @@ const ReviewsSection = () => {
   };
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
+    <div className="p-4 max-w-lg mx-auto overflow-y-auto">
       <h2 className="text-2xl font-semibold mb-4">Write a Review</h2>
       <form onSubmit={handleSubmitReview}>
         <label>Choose an Artist</label>
         <select
           id="selectArtist"
+          className="m-2 text-center text-black align-middle w-40"
           onChange={(e) => setSelectedArtist({ id: e.target.value })}
         >
-          <option>Select Artist</option>
+          <option>Select</option>
           {artists.map((artist) => (
-            <option key={artist.id} value={artist.id}>
+            <option key={artist.id} value={artist.id} className="text-center m-2">
               {artist.user.first_name}
             </option>
           ))}
         </select>
+        <br />
         <label>Choose a Service</label>
         <select
           id="selectService"
+          className="m-2 text-center text-black align-middle w-40"
           onChange={(e) => setSelectedService({ id: e.target.value })}
         >
-          <option>Select Service</option>
+          <option>Select</option>
           {services.map((service) => (
             <option key={service.id} value={service.id}>
               {service.name}

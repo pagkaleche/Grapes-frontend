@@ -87,9 +87,7 @@ const CategoryPage = () => {
         </h1>
       </motion.div>
 
-      {loading && (
-        <Loading />
-      )}
+      {loading && <Loading />}
 
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 py-12"
@@ -117,10 +115,8 @@ const CategoryPage = () => {
                   <img
                     src={image}
                     alt={`Image ${index + 1}`}
-                    className="object-cover object-center sm:w-48 md:w-64 lg:w-80 h-20 w-20 md:h-52 lg:h-64 group-hover:opacity-75 transition-opacity duration-300"
+                    className="object-cover object-center w-full h-72 group-hover:opacity-75 transition-opacity duration-300"
                     loading="lazy"
-                    width={256}
-                    height={256}
                   />
                 </div>
               </motion.div>
@@ -139,15 +135,15 @@ const CategoryPage = () => {
           className="fixed inset-0 z-50 bg-black bg-opacity-75 justify-center items-center flex"
           onClick={closeModal}
         >
-          <div className="relative flex p-4 bg-black rounded-lg shadow-lg max-w-4xl w-full">
-            <div className="flex-shrink-0 mr-4 w-2/3 h-auto">
+          <div className="relative flex flex-col overflow-y-auto md:flex-row p-4 bg-black rounded-lg shadow-lg max-w-4xl w-5/6 h-5/6">
+            <div className="mb-4 md:mr-4 w-full md:w-2/3">
               <img
                 src={selectedImage}
                 alt="Selected"
                 className="w-full h-full object-cover rounded-md"
               />
             </div>
-            <div className="flex-grow w-3/4 h-auto">
+            <div className="flex-grow w-full md:w-1/3 h-full md:overflow-y-auto">
               <ReviewsSection />
             </div>
           </div>
