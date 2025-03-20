@@ -6,8 +6,10 @@ import "./index.scss";
 import { APIService } from "@/lib/APIService";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
+import { useAppSelector } from "@/store/store";
 
 function Account() {
+  const token = useAppSelector((state) => state.auth.token);
   const apiService = new APIService();
   const [users, setUsers] = useState(null); // Set initial state as null
   const [userEmail, setUserEmail] = useState('');
@@ -17,24 +19,15 @@ function Account() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let token = localStorage.getItem("token"); // Retrieve the token from localStorage
-
         // Add the token to the request headers
-        let appointmentsArray = await apiService.Appointments.getAll({
-          headers: {
-            'Authorization': `Token ${token}`,  // Include token in the Authorization header
-          },
-        });
-
-        // Find the appointment with id 30
-        const appointment = appointmentsArray.find(appointment => appointment.customer.user.email === email);
-
-        // If appointment is found, extract the email and set it in state
-        if (appointment && appointment.customer && appointment.customer.user) {
-          setUsers(appointment);  // Set the appointment data directly in users state
-        } else {
-          console.log("Appointment not found or data is incomplete.");
-        }
+        let appointmentsArray = await apiService.Appointments.getAll({}, token);
+        console.log(appointmentsArray);
+        // // If appointment is found, extract the email and set it in state
+        // if (appointment && appointment.customer && appointment.customer.user) {
+        //   setUsers(appointment);  // Set the appointment data directly in users state
+        // } else {
+        //   console.log("Appointment not found or data is incomplete.");
+        // }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
