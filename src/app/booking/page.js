@@ -33,6 +33,7 @@ function Booking() {
     date: '',
     time: '',
   });
+  const email = localStorage.getItem('email');
 
   const slots = ['10:00 a.m.', '11:00 a.m.', '12:00 p.m.', '13:00 p.m.', '14:00 p.m.', '15:00 p.m.', '16:00 p.m.', '17:00 p.m.'];
 
@@ -40,33 +41,60 @@ function Booking() {
     const formattedDate = selectedDate.toISOString().split('T')[0];
     const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
 
+    if(!token && token !== "undefined") {
+      let createdAppointment = await apiService.Appointments.create(
+        {
+          provided_at: `${formattedDate}T${cleanTime}Z`,
+          artist: selectedArtist.id,
+          provided_service: selectedService.id,
+          message: "",
+          customer_data: {
+            user: {
+              first_name: selectedName,
+              email: selectedEmail,
+            },
+            phone_number: "123456789",
+          }
+        },
+        token
+      );
 
-    // Create appointment
-    let createdAppointment = await apiService.Appointments.create(
-      {
-        provided_at: `${formattedDate}T${cleanTime}Z`,
-        artist: selectedArtist.id,
-        provided_service: selectedService.id,
-        message: "",
-        customer_data: {
-          user: {
-            first_name: selectedName,
-            email: selectedEmail,
+      // Set user details for the modal
+      setUserDetails({
+        name: document.getElementById('nameInput').value,
+        artist: selectedArtist.first_name,
+        service: selectedService.name,
+        date: formattedDate,
+        time: selectedTime,
+      });
+    } else {
+        console.log("creating appointment with token");
+        let createdAppointment = await apiService.Appointments.create(
+          {
+            provided_at: `${formattedDate}T${cleanTime}Z`,
+            artist: selectedArtist.id,
+            provided_service: selectedService.id,
+            message: "",
+            customer_data: {
+              user: {
+                first_name: "Authenticated user",
+                email: "bnvbnsdfsj@gmail.com",
+              },
+              phone_number: "123456789",
+            }
           },
-          phone_number: 123456789,
-        }
-      },
-      token
-    );
-
-    // Set user details for the modal
-    setUserDetails({
-      name: document.getElementById('nameInput').value,
-      artist: selectedArtist.first_name,
-      service: selectedService.name,
-      date: formattedDate,
-      time: selectedTime,
-    });
+          token
+        );
+    
+        // Set user details for the modal
+        setUserDetails({
+          name: "Authenticated user",
+          artist: selectedArtist.first_name,
+          service: selectedService.name,
+          date: formattedDate,
+          time: selectedTime,
+        });
+    }
 
     // Show the modal
     setShowModal(true);
