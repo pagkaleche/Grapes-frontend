@@ -22,6 +22,9 @@ function Booking() {
   const [services, setServices] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedTime, setSelectedTime] = useState('');
+  const [selectedName, setSelectedName] = useState('');
+  const [selectedEmail, setSelectedEmail] = useState('');
+  const [selectedPhone, setSelectedPhone] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [userDetails, setUserDetails] = useState({
     name: '',
@@ -47,10 +50,10 @@ function Booking() {
         message: "",
         customer_data: {
           user: {
-            first_name: "Asd!",
-            email: "asdAAAAAAAAAAAAAAAAAAAAAAAAAA@asd.asd",
+            first_name: selectedName,
+            email: selectedEmail,
           },
-          phone_number: "+123"
+          phone_number: 123456789,
         }
       },
       token
@@ -67,6 +70,7 @@ function Booking() {
 
     // Show the modal
     setShowModal(true);
+    console.log("Client info: " + selectedEmail + selectedName + selectedPhone);
   };
 
   const handleDayPress = (date) => {
@@ -154,17 +158,29 @@ function Booking() {
             <div className="name-email-fields">
               <div className="name-field">
                 <label>Name *</label>
-                <input id="nameInput" />
+                <input 
+                  id="nameInput" 
+                  value={selectedName}
+                  onChange={(e) => setSelectedName(e.target.value)}
+                  />
               </div>
               <div className="email-field">
                 <label>Email *</label>
-                <input id="emailInput" />
+                <input 
+                  id="emailInput" 
+                  value={selectedEmail}
+                  onChange={(e) => setSelectedEmail(e.target.value)}  
+                />
               </div>
             </div>
             <div className="other-fields">
               <div>
                 <label>Phone Number *</label>
-                <input id="phoneInput" />
+                <input 
+                  id="phoneInput" 
+                  value={selectedPhone}
+                  onChange={(e) => setSelectedPhone(e.target.value)}  
+                />
               </div>
 
               <div>
