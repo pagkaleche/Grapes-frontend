@@ -14,7 +14,7 @@ const Card = ({ artist }) => {
           alt={`${artist.user?.first_name || "Unknown"}'s image`}
           fill="true"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "contain"}}
           className="absolute top-0 left-0 w-full h-full z-0 transform transition-transform duration-300 ease-in-out group-hover:scale-110"
         />
         <div className="absolute inset-0 z-10 flex flex-col justify-between h-full">

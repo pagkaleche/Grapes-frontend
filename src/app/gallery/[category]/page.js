@@ -135,7 +135,7 @@ const CategoryPage = () => {
           className="fixed inset-0 z-50 bg-black bg-opacity-75 justify-center items-center flex"
           onClick={closeModal}
         >
-          <div className="relative flex flex-col overflow-y-auto md:flex-row p-4 bg-black rounded-lg shadow-lg max-w-4xl w-5/6 h-5/6">
+          <div className="relative flex flex-col overflow-y-auto md:flex-row p-4 bg-black rounded-lg shadow-lg max-w-full w-5/6 h-5/6">
             <div className="mb-4 md:mr-4 w-full md:w-2/3">
               <img
                 src={selectedImage}
@@ -143,7 +143,7 @@ const CategoryPage = () => {
                 className="w-full h-full object-cover rounded-md"
               />
             </div>
-            <div className="flex-grow w-full md:w-1/3 h-full md:overflow-y-auto">
+            <div className="flex-grow w-full md:w-1/3 h-full md:overflow-y-auto md:max-h-full">
               <ReviewsSection />
             </div>
           </div>

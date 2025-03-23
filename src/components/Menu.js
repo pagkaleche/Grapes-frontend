@@ -20,7 +20,9 @@ const registration = [
 
 const pages = [
   { name: "About", href: "/about" },
+  { name: "Artists", href: "/artists" },
   { name: "Book Now", href: "/booking" },
+  
 ];
 
 export const Menu = () => {

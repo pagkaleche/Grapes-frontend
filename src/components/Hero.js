@@ -45,63 +45,63 @@ export function Hero() {
               <h1 className="text-xl font-bold tracking-tight text-white sm:text-xl md:text-2xl pb-10">
                 What are you interested in?
               </h1>
-              <div className="mt-8 grid grid-cols-2 gap-48 sm:grid-cols-4">
-                <a
+              <div className="mt-8 grid grid-cols-2 gap-24 sm:gap-48 sm:grid-cols-4">
+                <Link
                   href="/gallery/2"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
                     src="/images/photo.png"
                     alt="Icon 1"
-                    className="h-12 w-12 hidden sm:block"
+                    className="h-12 w-12 sm:h-16 sm:w-16 sm:block sm:max-w-16"
                   />
                   <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
                     Photo
                   </span>
 
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/gallery/1"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
                     src="/images/tattoo.png"
                     alt="Icon 2"
-                    className="h-12 w-12 hidden sm:block"
+                    className="h-12 w-12 sm:h-16 sm:w-16 sm:block sm:max-w-16"
                   />
                   <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
                     Tattoo
                   </span>
 
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/gallery/4"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
                     src="/images/makeup.png"
                     alt="Icon 3"
-                    className="h-12 w-12 hidden sm:block"
+                    className="h-12 w-12 sm:h-16 sm:w-16 sm:block sm:max-w-16"
                   />
                   <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
                     Makeup
                   </span>
 
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/gallery/5"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
                     src="/images/nail.png"
                     alt="Icon 4"
-                    className="h-12 w-12 hidden sm:block"
+                    className="h-12 w-12 sm:h-16 sm:w-16 sm:block sm:max-w-16"
                   />
                   <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
                     Nails
                   </span>
 
-                </a>
+                </Link>
               </div>
             </div>
           </div>

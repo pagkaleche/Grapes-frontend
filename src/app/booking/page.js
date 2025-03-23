@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Calendar from "react-calendar";
 import "./index.scss";
 import { motion } from "framer-motion";
-import {pageVariants} from '@/components/Variants'
+import { pageVariants } from '@/components/Variants'
 import { APIService } from "@/lib/APIService";
 import { useAppSelector } from "@/store/store";
 import { Provider } from "react-redux";
@@ -127,10 +127,10 @@ function Booking() {
       exit="exit"
       transition={{ duration: 1.5 }}
     >
-      <div className="booking-container mx-auto p-2">
+      <div className="booking-container mx-auto p-4 sm:p-8">
         {/* Artist and Service Selection */}
         <div className="artist-service-selection">
-          <div className="mb-1">
+          <div className="mb-4">
             <label htmlFor="selectArtist" className="block text-3xl font-medium text-gray-700 mb-2">Choose your artist:</label>
             <select
               id="selectArtist"
@@ -157,8 +157,8 @@ function Booking() {
             <h2 className="text-xl text-left mb-6">Tell us a little bit about yourself.</h2>
 
             <div className="form-container space-y-6">
-              <div className="name-email-fields flex col-span-1 space-x-6">
-                <div className="name-field w-1/2">
+              <div className="name-email-fields flex flex-col sm:flex-row sm:space-x-6">
+                <div className="name-field sm:w-1/2">
                   <label htmlFor="nameInput" className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
                   <input
                     id="nameInput"
@@ -167,7 +167,7 @@ function Booking() {
                     className="w-full px-4 py-2 border rounded-md text-gray-700"
                   />
                 </div>
-                <div className="email-field w-1/2">
+                <div className="email-field sm:w-1/2">
                   <label htmlFor="emailInput" className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
                   <input
                     id="emailInput"
@@ -219,8 +219,8 @@ function Booking() {
           <h1 className="text-4xl font-semibold text-center mb-4 text-gray-700">Schedule your appointment</h1>
           <h2 className="text-xl text-center text-gray-700 mb-6">Checkout the availability and book the date and time that works for you</h2>
 
-          <div className="appointment-container flex space-x-6 justify-center">
-            <div className="calendar-container">
+          <div className="appointment-container flex flex-col sm:flex-row sm:space-x-6 justify-center">
+            <div className="calendar-container sm:w-1/2">
               <Calendar
                 onClickDay={handleDayPress}
                 tileClassName={tileClassName}
@@ -230,7 +230,7 @@ function Booking() {
             </div>
 
             {selectedDate && (
-              <div className="time-selection w-1/3">
+              <div className="time-selection sm:w-1/3 mt-6 sm:mt-0">
                 <h2 className="text-lg font-semibold mb-2">Select Time</h2>
                 {availableSlots.length > 0 ? (
                   <div className="slot-list space-y-2">
@@ -277,6 +277,7 @@ function Booking() {
           userDetails={userDetails}
         />
       </div>
+
     </motion.div>
   );
 }

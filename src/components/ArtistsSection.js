@@ -12,7 +12,7 @@ export function ArtistsSection() {
   return (
     <motion.div
         style={{
-          opacity,
+          // opacity,
           y,
           blur,
           transformOrigin: "center",
@@ -23,7 +23,7 @@ export function ArtistsSection() {
       <div className="mx-auto px-4 sm:px-6 lg:px-8 lg:pt-0">
         <h2
           id="artists-heading"
-          className="flex pb-10 text-4xl font-bold tracking-tight text-white text-center mt-32"
+          className="flex pb-10 text-4xl font-bold tracking-tight text-white text-center"
         >
           Artists
         </h2>

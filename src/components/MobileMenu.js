@@ -81,12 +81,6 @@ export const MobileMenu = ({ categories, pages }) => {
                             />
                             {item.name}
                           </a>
-                          <p
-                            aria-hidden="true"
-                            className="mt-1 text-sm text-gray-500"
-                          >
-                            Shop now
-                          </p>
                         </div>
                       ))}
                     </div>
