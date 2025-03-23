@@ -1,12 +1,8 @@
 "use client";
-import { AboutSection } from '@/components/AboutSection'
 import { ArtistsSection } from '@/components/ArtistsSection'
 import { Hero } from '@/components/Hero'
-import { LocationSection } from '@/components/LocationSection'
 import { motion } from "framer-motion";
 import {pageVariants} from '@/components/Variants'
-import { Menu } from '@/components/Menu'
-import { useEffect } from 'react';
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
 import { useAppSelector } from "@/store/store";
@@ -26,9 +22,7 @@ function Home() {
       <div className="bg-black">
         <main>
           <Hero />
-          <AboutSection />
           <ArtistsSection />
-          <LocationSection />
         </main>
       </div>
     </motion.div>

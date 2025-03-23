@@ -11,7 +11,7 @@ import {
   TabPanels,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 
 export const MobileMenu = ({ categories, pages }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -107,25 +107,6 @@ export const MobileMenu = ({ categories, pages }) => {
                 </div>
               ))}
             </div>
-            {/* HIDDEN */}
-            <div className="space-y-6 border-t border-gray-200 px-4 py-6 hidden">
-              <div className="flow-root">
-                <a
-                  href="./sign-in"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Create an account
-                </a>
-              </div>
-              <div className="flow-root">
-                <a
-                  href="./sign-in"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Sign in
-                </a>
-              </div>
-            </div>
           </DialogPanel>
         </div>
       </Dialog>
@@ -158,12 +139,6 @@ export const MobileMenu = ({ categories, pages }) => {
                     href="#"
                     className="ml-2 p-2 text-gray-400 hover:text-gray-500 hidden"
                   >
-                    {/* HIDDEN */}
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon
-                      aria-hidden="true"
-                      className="size-6"
-                    />
                   </a>
                 </div>
 

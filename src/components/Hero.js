@@ -1,10 +1,11 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import hero from "../../public/images/hero.png";
 import { useEffect, useState } from "react";
 export function Hero() {
   const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const backgroundSize = useTransform(scrollY, [0, 600], ["100%", "200%"]);
 
   const [heroImage, setHeroImage] = useState(hero);
@@ -54,10 +55,13 @@ export function Hero() {
                     alt="Icon 1"
                     className="h-12 w-12 hidden sm:block"
                   />
-                  <span className="mt-2">Photo</span>
+                  <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
+                    Photo
+                  </span>
+
                 </a>
                 <a
-                  href="/gallery/2"
+                  href="/gallery/1"
                   className="flex flex-col items-center text-white hover:text-gray-300"
                 >
                   <img
@@ -65,7 +69,10 @@ export function Hero() {
                     alt="Icon 2"
                     className="h-12 w-12 hidden sm:block"
                   />
-                  <span className="mt-2">Tattoo</span>
+                  <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
+                    Tattoo
+                  </span>
+
                 </a>
                 <a
                   href="/gallery/4"
@@ -76,7 +83,10 @@ export function Hero() {
                     alt="Icon 3"
                     className="h-12 w-12 hidden sm:block"
                   />
-                  <span className="mt-2">Makeup</span>
+                  <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
+                    Makeup
+                  </span>
+
                 </a>
                 <a
                   href="/gallery/5"
@@ -87,7 +97,10 @@ export function Hero() {
                     alt="Icon 4"
                     className="h-12 w-12 hidden sm:block"
                   />
-                  <span className="mt-2">Nails</span>
+                  <span className="relative mt-2 hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
+                    Nails
+                  </span>
+
                 </a>
               </div>
             </div>
