@@ -9,14 +9,15 @@ import { useAppSelector } from "@/store/store";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import Modal from "./Modal"; // Import Modal component
+import { stringify } from "postcss";
 
 function Booking() {
   const token = useAppSelector((state) => state.auth.token);
   console.log('token', token, typeof (token));
   const apiService = new APIService();
   const router = useRouter();
-  const [selectedArtist, setSelectedArtist] = useState({ id: 1 });
-  const [selectedService, setSelectedService] = useState({ id: 1 });
+  const [selectedArtist, setSelectedArtist] = useState({ id: 0 });
+  const [selectedService, setSelectedService] = useState({ id: 0 });
   const [selectedDate, setSelectedDate] = useState('');
   const [artists, setArtists] = useState([]);
   const [services, setServices] = useState([]);
@@ -48,7 +49,8 @@ function Booking() {
       message: "",
     };
 
-    if (token) {
+
+      console.log("EXECUTING");
       appointmentData['customer_data'] = {
         user: {
           first_name: selectedName,
@@ -56,13 +58,13 @@ function Booking() {
         },
         phone_number: "123456789",
       }
-    }
+    
 
     let createdAppointment = await apiService.Appointments.create(
       appointmentData,
       token
     );
-    console.log(createdAppointment);
+    console.log("created appointment"+JSON.stringify(createdAppointment, null, 2));
     // Set user details for the modal
     setUserDetails({
       name: createdAppointment.customer.user.first_name,
@@ -152,7 +154,9 @@ function Booking() {
           ))}
         </select>
       </div>
-      <div className="section-divider"></div>
+      {!token && token !== 'undefined' && (
+        <div className="section-divider"></div>
+      )}
       {!token && token !== "undefined" && (
         <div className="client-info">
           <h1>Tell us a little bit about yourself</h1>
@@ -187,7 +191,7 @@ function Booking() {
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <label>Add Your Message *</label>
                 <input id="messageInput" />
               </div>
@@ -195,12 +199,15 @@ function Booking() {
               <div>
                 <label>Add images of Desired Work *</label>
                 <input id="imageUpload" name="image" type="file" />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
+        
       )}
-      <div className="section-divider"></div>
+      {!token && token !== 'undefined' && (
+        <div className="section-divider"></div>
+      )}
       <div className="appointment-scheduling">
         <h1>Schedule your appointment</h1>
         <h2>Checkout the availability and book the date and time that works for you</h2>
