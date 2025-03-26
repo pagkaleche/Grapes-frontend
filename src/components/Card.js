@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { childVariants } from './Variants';
+import Link from 'next/link';
 
 const Card = ({ artist }) => {
   return (
-    <a className="group hover:opacity-100" href={`artists/${artist.id}`}>
+    <Link className="group hover:opacity-100" href={`artists/${artist.id}`}>
       <motion.div
         variants={childVariants}
         className="relative max-w-full min-h-[250px] lg:min-h-[350px] overflow-hidden shadow-lg mb-4"
@@ -37,7 +38,7 @@ const Card = ({ artist }) => {
           </div>
         </div>
       </motion.div>
-    </a>
+    </Link>
   );
 };
 
