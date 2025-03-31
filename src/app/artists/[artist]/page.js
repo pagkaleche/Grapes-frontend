@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 import ArtistHeader from "@/components/ArtistHeader";
 import { APIService } from "@/lib/APIService";
 import { Loading } from "@/components/Loading";
+import ReviewsSection from "@/components/Reviews";
 
 export default function ArtistsSection() {
   const params = useParams();
   const artistId = params.artist;
-
   const [artist, setArtist] = useState(null);
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,8 +50,8 @@ export default function ArtistsSection() {
   }
   return (
     <div className="bg-neutral-950 text-white">
-        <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-80 z-0"></div>
-        <ArtistHeader artist={artist} />
+      <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-80 z-0"></div>
+      <ArtistHeader artist={artist} />
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 py-12"
         variants={containerVariants}
@@ -106,6 +106,7 @@ export default function ArtistsSection() {
           </div>
         </div>
       )}
+      <ReviewsSection artistId={artistId}/>
     </div>
   );
 }

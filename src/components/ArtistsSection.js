@@ -12,12 +12,10 @@ export function ArtistsSection() {
   return (
     <motion.div
         style={{
-          // opacity,
           y,
           blur,
           transformOrigin: "center",
         }}
-        aria-hidden="true"
       >
     <section aria-labelledby="artists-heading" className="relative bg-black mt-10" id="artists">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 lg:pt-0">
