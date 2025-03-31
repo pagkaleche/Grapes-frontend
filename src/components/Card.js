@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { childVariants } from './Variants';
+import Link from 'next/link';
 
 const Card = ({ artist }) => {
   return (
-    <a className="group hover:opacity-100" href={`artists/${artist.id}`}>
+    <Link className="group hover:opacity-100" href={`artists/${artist.id}`}>
       <motion.div
         variants={childVariants}
         className="relative max-w-full min-h-[250px] lg:min-h-[350px] overflow-hidden shadow-lg mb-4"
@@ -14,7 +15,7 @@ const Card = ({ artist }) => {
           alt={`${artist.user?.first_name || "Unknown"}'s image`}
           fill="true"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "contain"}}
           className="absolute top-0 left-0 w-full h-full z-0 transform transition-transform duration-300 ease-in-out group-hover:scale-110"
         />
         <div className="absolute inset-0 z-10 flex flex-col justify-between h-full">
@@ -37,7 +38,7 @@ const Card = ({ artist }) => {
           </div>
         </div>
       </motion.div>
-    </a>
+    </Link>
   );
 };
 

@@ -1,256 +1,284 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    background-color: black;
-    color: white;
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-  }
-  
-  .booking-container {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  color: white;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.booking-container {
+  display: flex;
+  background-color: rgb(167, 165, 165);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  overflow-x: hidden;
+  margin: 0 auto;
+
+  .artist-service-selection {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    min-height: 100vh;
-    width: 100%;
-    text-align: center;
-    overflow-x: hidden;
-    max-width: 1000px;
-    margin: 0 auto;
-  
-    .artist-service-selection {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding-bottom: 95px;
-      padding-top: 95px;
-  
-      h1 {
-        font-size: 4rem;
-        margin-bottom: 115px;
-      }
-  
-      select {
-        margin-bottom: 2rem;
-        background-color: black;
-        border: 2px solid white;
-        height: 4rem;
-        width: 450px;
-      }
-  
-      label {
-        margin-bottom: 0.5rem;
-        font-size: 1.3rem;
-      }
+    align-items: center;
+    padding-top: 95px;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 50px;
     }
-  
-    .section-divider {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      border: 1px solid white;
-      width: 100px;
-      margin-bottom: 65px;
+
+    select {
+      margin-bottom: 2rem;
+      background-color: rgb(255, 255, 255);
+      // border: 2px solid white;
+      height: 2.5rem;
+      width: 150px;
     }
-  
-    .client-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-  
-      h1 {
-        font-size: 4rem;
-        margin-bottom: 90px;
-      }
-  
-      h2 {
-        font-size: 2.5rem;
-      }
-    }
-  
-    .form-container {
-      display: flex;
-      flex-direction: column;
-  
-      span {
-        border: 2px solid white;
-        width: 880px;
-        margin-bottom: 80px;
-      }
-  
-      input {
-        background-color: black;
-        border: 2px solid white;
-        height: 4rem;
-        width: 450px;
-      }
-  
-      label {
-        margin-bottom: 0.5rem;
-        font-size: 1.3rem;
-      }
-  
-      .other-fields div {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-right: 2.5rem;
-        margin-bottom: 80px;
-  
-        input {
-          width: 940px;
-        }
-  
-        input[type="file"] {
-          color: transparent;
-          background: transparent;
-          border: 2px solid white;
-          padding: 10px;
-          width: 300px;
-        }
-      }
-    }
-  
-    .name-email-fields {
-      display: flex;
-      margin-bottom: 80px;
-  
-      input {
-        background-color: black;
-        border: 2px solid white;
-        height: 4rem;
-        width: 450px;
-      }
-  
-      .name-field,
-      .email-field {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-right: 2.5rem;
-      }
-  
-      label {
-        margin-bottom: 0.5rem;
-        font-size: 1.3rem;
-      }
-    }
-  
-    .appointment-scheduling {
-      h1 {
-        margin: 35px;
-      }
-  
-      h2 {
-        font-size: 1.9rem;
-      }
-  
-      .react-calendar {
-        width: 350px;
-        font-size: 1.5rem;
-      }
-  
-      .react-calendar__navigation {
-        border-bottom: 2px solid white;
-        margin-bottom: 40px;
-      }
-  
-      .react-calendar__month-view__weekdays__weekday {
-        abbr {
-          font-size: 1.5rem;
-        }
-      }
-    }
-  
-    .appointment-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 125px;
-    }
-  
-    .calendar-container {
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .time-selection {
-      display: flex;
-      flex-direction: column;
-  
-      h2 {
-        font-size: 1.5rem;
-        border-bottom: 2px solid white;
-        margin-bottom: 40px;
-      }
-    }
-  
-    .slot-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      row-gap: 20px;
-      justify-items: center;
-      max-width: 350px;
-    }
-  
-    .slot-button {
-      width: 175px;
-      padding: 5px 0;
-      border-radius: 30px;
-      margin-bottom: 10px;
-      gap: 10px;
-      border: 2px solid white;
-      cursor: pointer;
-      font-size: 1.5rem;
-      background-color: black;
-      color: white;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      text-align: center;
-    }
-  
-    .slot-button.selected {
-      width: 175px;
-      padding: 5px 0;
-      border-radius: 30px;
-      margin-bottom: 10px;
-      gap: 10px;
-      border: 2px solid white;
-      cursor: pointer;
-      font-size: 1.5rem;
-      background-color: rgb(44, 27, 197);
-      color: white;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      text-align: center;
-    }
-  
-    .next-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-  
-      button {
-        background-color: black;
-        border: 2px solid white;
-        height: 4rem;
-        width: 600px;
-        margin-top: 135px;
-        margin-bottom: 50px;
-      }
-    }
-  
-    .selected-day {
-      background-color: black !important;
-      color: white !important;
-      border: 3px solid white;
-      border-radius: 15%;
+
+    label {
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
     }
   }
-  
+
+  .section-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgb(2, 2, 2);
+    width: 200px;
+    margin-bottom: 55px;
+  }
+
+  .client-info {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #374151
+    }
+
+    h2 {
+      font-size: 1rem;
+      margin-bottom: 30px;
+      color: #374151
+    }
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      width: 880px;
+      margin-bottom: 50px;
+    }
+
+    input {
+      background-color: white;
+      height: 2.5rem;
+    }
+
+    .image-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .other-fields div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 2.5rem;
+
+      input[type="file"] {
+        color: transparent;
+        background: transparent;
+        width: 100px;
+      }
+    }
+  }
+
+  .name-email-fields {
+    display: flex;
+
+    input {
+      background-color: white;
+      height: 2.5rem;
+      width: 350px;
+    }
+
+    .name-field,
+    .email-field {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 2.5rem;
+    }
+
+    label {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  .appointment-scheduling {
+    h1 {
+      margin: 35px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    .react-calendar {
+      font-size: 1.5rem;
+      padding: 5px;
+    }
+
+    .react-calendar__navigation {
+      border-bottom: 2px solid #374151;
+      margin-bottom: 40px;
+    }
+
+    .react-calendar__month-view__weekdays__weekday {
+      abbr {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  span.react-calendar__navigation__label__labelText.react-calendar__navigation__label__labelText--from {
+    padding: 20px;
+  }
+
+  button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button {
+    padding-left: 10px;
+  }
+
+  button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
+    padding-right: 10px;
+  }
+
+  button.react-calendar__tile.react-calendar__month-view__days__day.react-calendar__month-view__days__day--neighboringMonth {
+    color: #a7a5a6;
+  }
+
+  button.react-calendar__tile.react-calendar__month-view__days__day {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  button.react-calendar__tile.react-calendar__month-view__days__day:hover {
+    background-color: #ca766f;
+    color: white;
+    cursor: pointer;
+    border-radius: 10%;
+  }
+
+  .appointment-container {
+    display: flex;
+    margin-top: 55px;
+  }
+
+  .calendar-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .time-selection {
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      font-size: 1.5rem;
+      border-bottom: 2px solid white;
+      margin-bottom: 40px;
+    }
+  }
+
+  .slot-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    row-gap: 20px;
+    justify-items: center;
+    max-width: 350px;
+  }
+
+  .slot-button {
+    width: 175px;
+    padding: 5px 0;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: black;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+  }
+
+  .slot-button.selected {
+    width: 175px;
+    padding: 5px 0;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: rgb(44, 27, 197);
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+  }
+
+  .react-calendar__month-view__weekdays__weekday {
+    padding-bottom: 10px;
+  }
+
+  .next-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    button {
+      background-color: black;
+      height: 3rem;
+      width: 500px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+
+    button:hover {
+      background-color: #ca766f;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .selected-day {
+    background-color: black !important;
+    color: white !important;
+    border: 3px solid white;
+    border-radius: 15%;
+  }
+}

@@ -50,17 +50,8 @@ export default function ArtistsSection() {
   }
   return (
     <div className="bg-neutral-950 text-white">
-      <motion.div
-        className="relative bg-cover bg-center h-4/6 flex items-center justify-center pt-16"
-        style={{ backgroundImage: artist?.image }}
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
         <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-80 z-0"></div>
         <ArtistHeader artist={artist} />
-      </motion.div>
-
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 py-12"
         variants={containerVariants}
@@ -74,7 +65,7 @@ export default function ArtistsSection() {
               <motion.div
                 key={photo.id}
                 className="group cursor-pointer"
-                // initial="hidden"
+                initial="hidden"
                 animate="visible"
                 variants={childVariants}
                 whileHover={{ scale: 1.05 }}
@@ -84,7 +75,7 @@ export default function ArtistsSection() {
                   <img
                     src={photo.image}
                     alt={photo.description}
-                    className="object-cover object-center sm:w-48 md:w-64 lg:w-80 h-20 w-20 md:h-52 lg:h-64 group-hover:opacity-75 transition-opacity duration-300"
+                    className="object-cover object-center sm:w-48 md:w-64 lg:w-80 h-20 md:h-52 lg:h-64 group-hover:opacity-75 transition-opacity duration-300"
                     loading="lazy"
                     width={256}
                     height={256}

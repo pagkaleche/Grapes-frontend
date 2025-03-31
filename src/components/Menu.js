@@ -7,9 +7,10 @@ import {
   PopoverGroup,
   PopoverPanel,
 } from "@headlessui/react";
-import { MobileMenu } from "./MobileMenu";
 import Link from "next/link";
+import { MobileMenu } from "./MobileMenu";
 import { usePathname } from "next/navigation";
+
 import { APIService } from "@/lib/APIService";
 
 const registration = [
@@ -18,8 +19,10 @@ const registration = [
 ];
 
 const pages = [
+  { name: "About", href: "/about" },
   { name: "Artists", href: "/artists" },
-  { name: "Location", href: "/#location-section" },
+  { name: "Book Now", href: "/booking" },
+  
 ];
 
 export const Menu = () => {
@@ -29,31 +32,31 @@ export const Menu = () => {
     {
       name: "Gallery",
       featured: [
-      {
-        name: 'Tattoo',
-        href: `/gallery/1`,
-        imageSrc: '/image/gallery/category/Tattoo.jpg',
-        imageAlt: 'Tattoo',
-      },
-      {
-        name: 'Makeup',
-        href: `/gallery/4`,
-        imageSrc: '/image/gallery/category/Makeup.png',
-        imageAlt: 'Makeup',
-      },
-      {
-        name: 'PhotoStudio',
-        href: `/gallery/2`,
-        imageSrc: '/image/gallery/category/PhotoStudio.jpg',
-        imageAlt: 'Photo Studio',
-      },
-      {
-        name: 'Nail Art',
-        href: `/gallery/5`,
-        imageSrc: '/image/gallery/category/NailArt.png',
-        imageAlt: 'Microblading',
-      }
-    ],
+        {
+          name: 'Tattoo',
+          href: `/gallery/1`,
+          imageSrc: '/image/gallery/category/Tattoo.jpg',
+          imageAlt: 'Tattoo',
+        },
+        {
+          name: 'Makeup',
+          href: `/gallery/4`,
+          imageSrc: '/image/gallery/category/Makeup.png',
+          imageAlt: 'Makeup',
+        },
+        {
+          name: 'PhotoStudio',
+          href: `/gallery/2`,
+          imageSrc: '/image/gallery/category/PhotoStudio.jpg',
+          imageAlt: 'Photo Studio',
+        },
+        {
+          name: 'Nail Art',
+          href: `/gallery/5`,
+          imageSrc: '/image/gallery/category/NailArt.png',
+          imageAlt: 'Microblading',
+        }
+      ],
     },
   ]);
 
@@ -96,7 +99,7 @@ export const Menu = () => {
         >
           {/* Secondary navigation */}
           <div className="bg-transparent">
-            <div className="flex justify-between px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50">
               <div className="p-8 flex h-16 items-center justify-between">
                 {/* Desktop menu */}
                 <div className="hidden h-full lg:flex">
@@ -105,20 +108,22 @@ export const Menu = () => {
                     <div className="flex h-full justify-center space-x-8">
                       {/* Logo (lg+) */}
                       <div className="hidden lg:flex lg:flex-1 lg:items-center">
-                        <a href="/">
+                        <Link href="/">
                           <span className="sr-only">Grape</span>
                           <img
                             alt="Beauty and art in the form of a grapevine logo."
                             src="/images/logo.png"
                             className="h-8 w-auto"
                           />
-                        </a>
+                        </Link>
                       </div>
                       {categories.map((category) => (
                         <Popover key={category.name} className="flex">
                           <div className="relative flex">
                             <PopoverButton className="group relative flex items-center justify-center text-sm font-medium text-white-700 transition-colors duration-200 ease-out hover:text-red-400 data-[open]:text-white">
-                              {category.name}
+                              <span className="relative hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
+                                {category.name}
+                              </span>
                               <span
                                 aria-hidden="true"
                                 className="absolute inset-x-0 -bottom-px z-10 h-0.5 transition duration-200 ease-out group-data-[open]:bg-black"
@@ -149,27 +154,24 @@ export const Menu = () => {
                                       key={item.name}
                                       className="relative hover:opacity-75"
                                     >
-                                      <img
-                                        alt={item.imageAlt}
-                                        src={item.imageSrc}
-                                        className="aspect-square w-full rounded-md bg-gray-100 object-cover transition-opacity duration-300"
-                                      />
-                                      <a
-                                        href={item.href}
-                                        className="mt-4 block font-medium text-gray-900"
-                                      >
-                                        <span
-                                          aria-hidden="true"
-                                          className="absolute inset-0 z-10"
+                                      <PopoverButton as={Link} href={item.href}>
+                                        <img
+                                          alt={item.imageAlt}
+                                          src={item.imageSrc}
+                                          className="aspect-square w-full rounded-md bg-gray-100 object-cover transition-opacity duration-300"
                                         />
-                                        {item.name}
-                                      </a>
-                                      <p
-                                        aria-hidden="true"
-                                        className="mt-1 hidden"
-                                      >
-                                        Book now
-                                      </p>
+                                          <span
+                                            aria-hidden="true"
+                                            className="absolute inset-0 z-10"
+                                          />
+                                          {item.name}
+                                        <p
+                                          aria-hidden="true"
+                                          className="mt-1 hidden"
+                                        >
+                                          Book now
+                                        </p>
+                                      </PopoverButton>
                                     </div>
                                   ))}
                                 </div>
@@ -179,7 +181,7 @@ export const Menu = () => {
                         </Popover>
                       ))}
                       {pages.map((page) => (
-                        <a
+                        <Link
                           key={page.name}
                           href={page.href}
                           className="flex items-center text-sm font-medium text-white hover:text-red-400"
@@ -209,8 +211,10 @@ export const Menu = () => {
                             }
                           }}
                         >
-                          {page.name}
-                        </a>
+                          <span className="relative hover:text-red-400 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] before:bg-red-400 before:transition-all before:duration-300 hover:before:w-full">
+                            {page.name}
+                          </span>
+                        </Link>
                       ))}
                     </div>
                   </PopoverGroup>
@@ -220,19 +224,11 @@ export const Menu = () => {
                 <div className="group relative flex items-center justify-center text-sm font-medium text-white-700 transition-colors duration-200 ease-out hover:text-red-400 data-[open]:text-white">
                   <a
                     href={registrationLink.href}
-                    className="text-sm font-medium text-white-700 hover:text-gray-500"
+                    className="text-md font-medium text-red-400 hover:text-gray-100 hover:bg-red-400 p-2 rounded-md "
                   >
                     {registrationLink.name}
                   </a>
                 </div>
-                <Link href="/booking">
-                  <button
-                    type="button"
-                    className="p-1 text-white hover:text-gray-500 border-2 border-white "
-                  >
-                    Book an appointment
-                  </button>
-                </Link>
               </div>
             </div>
           </div>
@@ -241,3 +237,15 @@ export const Menu = () => {
     </>
   );
 };
+
+function PopoverCloseLink({ href, children }) {
+  return (
+    <Link
+      href={href}
+      className="block font-medium text-gray-900"
+      onClick={() => document.activeElement.blur()}
+    >
+      {children}
+    </Link>
+  );
+}

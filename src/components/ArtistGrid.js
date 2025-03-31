@@ -41,7 +41,7 @@ const ArtistGrid = () => {
       variants={containerVariants}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
-      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 pb-10"
+      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-12 pb-10"
     >
       {artists.length > 0 ? (
         artists.map((artist, index) => <Card key={artist.id} artist={artist} />)

@@ -9,7 +9,7 @@ export function Footer() {
           <p className="text-xs text-gray-500">
             &copy; 2025 GRAPES STUDIO. ALL RIGHTS RESERVED
           </p>
-          <a href="#start" target="_self">
+          <a href="https://www.instagram.com/grapes.london/" target="_self">
             <img alt="" src="/images/logo.png" className="h-5 w-auto" />
           </a>
           <p className="text-xs text-gray-500">
