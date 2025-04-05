@@ -1,3 +1,5 @@
+const BASE_API_URL = 'https://https://grapesartspace.ca/api';
+
 export class APIClient {
   static async request({
     endpoint,
@@ -23,7 +25,7 @@ export class APIClient {
       options.body = JSON.stringify(body);
     }
 
-    var url = `api/${endpoint}`;
+    var url = `${BASE_API_URL}/${endpoint}`;
 
     if (params) {
       url = `${url}?${new URLSearchParams(params)}`;
