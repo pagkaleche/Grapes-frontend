@@ -25,7 +25,7 @@ export class APIClient {
       options.body = JSON.stringify(body);
     }
 
-    var url = `${BASE_API_URL}/${endpoint}`;
+    var url = `api/${endpoint}`;
 
     if (params) {
       url = `${url}?${new URLSearchParams(params)}`;
