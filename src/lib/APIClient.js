@@ -1,5 +1,3 @@
-import { BASE_API_URL } from "./Constants";
-
 export class APIClient {
   static async request({
     endpoint,
