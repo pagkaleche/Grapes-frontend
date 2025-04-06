@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import { APIService } from "@/lib/APIService";
 import { Loading } from "./Loading";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const ArtistGrid = () => {
   const [artists, setArtists] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useLocalStorage("favorites", []);
 
   useEffect(() => {
     const apiService = new APIService();
@@ -61,7 +62,7 @@ const ArtistGrid = () => {
               className="absolute border-white border-2 rounded-full w-8 h-8 flex items-center justify-center bg-white/20 backdrop-blur-sm bottom-5 right-5 z-20 cursor-pointer"
               onClick={() => toggleFavorite(artist.id)}
             >
-              {favorites.includes(artist.id) ? <FaHeart /> : <FaRegHeart />}
+              {favorites.includes(artist.id) ? <FaHeart className="text-purple-500"/> : <FaRegHeart />}
             </div>
           </div>
         ))
