@@ -1,0 +1,91 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+/* Apply basic layout styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: black;
+    color: white;
+      
+    
+  }
+  
+  .content {
+    width: 85%;
+    max-width: 1000px;
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 3rem;
+  }
+  
+  .section-header {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+  }
+  
+  .section-content {
+    margin-top: 20px;
+  }
+  
+  .info-card {
+    background-color: #2a2a2a;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-card p {
+    margin: 10px 0;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  .cancel-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+  }
+
+  .book-btn {
+    
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+  }
+  .book-appointment {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #d32f2f;
+  }
+  

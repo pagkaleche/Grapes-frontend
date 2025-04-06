@@ -1,82 +1,40 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Calendar from "react-calendar";
 import "./index.scss";
 import { APIService } from "@/lib/APIService";
+import { useState, useEffect } from "react";
 import { useAppSelector } from "@/store/store";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
-import Modal from "./Modal"; // Import Modal component
-import { stringify } from "postcss";
 
-function Booking() {
+function Booking2() {
   const token = useAppSelector((state) => state.auth.token);
-  console.log('token', token, typeof (token));
   const apiService = new APIService();
   const router = useRouter();
-  const [selectedArtist, setSelectedArtist] = useState({ id: 0 });
-  const [selectedService, setSelectedService] = useState({ id: 0 });
+  const [selectedArtist, setSelectedArtist] = useState({ id: 1 });
+  const [selectedService, setSelectedService] = useState({ id: 1 });
   const [selectedDate, setSelectedDate] = useState('');
   const [artists, setArtists] = useState([]);
   const [services, setServices] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedTime, setSelectedTime] = useState('');
-  const [selectedName, setSelectedName] = useState('');
-  const [selectedEmail, setSelectedEmail] = useState('');
-  const [selectedPhone, setSelectedPhone] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [userDetails, setUserDetails] = useState({
-    name: '',
-    artist: '',
-    service: '',
-    date: '',
-    time: '',
-  });
-  // const email = localStorage.getItem('email');
 
   const slots = ['10:00 a.m.', '11:00 a.m.', '12:00 p.m.', '13:00 p.m.', '14:00 p.m.', '15:00 p.m.', '16:00 p.m.', '17:00 p.m.'];
 
   const handleSubmit = async (event) => {
     const formattedDate = selectedDate.toISOString().split('T')[0];
     const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
-
-    let appointmentData = {
-      provided_at: `${formattedDate}T${cleanTime}Z`,
-      artist: selectedArtist.id,
-      provided_service: selectedService.id,
-      message: "",
-    };
-
-
-      console.log("EXECUTING");
-      appointmentData['customer_data'] = {
-        user: {
-          first_name: selectedName,
-          email: selectedEmail,
-        },
-        phone_number: "123456789",
-      }
-    
-
     let createdAppointment = await apiService.Appointments.create(
-      appointmentData,
+      {
+        provided_at: `${formattedDate}T${cleanTime}Z`,
+        artist: selectedArtist.id,
+        provided_service: selectedService.id,
+      },
       token
     );
-    console.log("created appointment"+JSON.stringify(createdAppointment, null, 2));
-    // Set user details for the modal
-    setUserDetails({
-      name: createdAppointment.customer.user.first_name,
-      artist: createdAppointment.artist.user.first_name,
-      service: createdAppointment.provided_service.name,
-      date: formattedDate,
-      time: selectedTime,
-    });
-
-    // Show the modal
-    setShowModal(true);
-    console.log("Client info: " + selectedEmail + selectedName + selectedPhone);
+    router.push("/");
   };
 
   const handleDayPress = (date) => {
@@ -106,15 +64,13 @@ function Booking() {
   };
 
   useEffect(() => {
+    console.log("token :" + token);
     const fetchData = async () => {
       try {
         let servicesArray = await apiService.Services.getAll();
         let artistsArray = await apiService.Artists.getAll();
         setArtists(artistsArray);
         setServices(servicesArray);
-
-        const me = await apiService.Users.me(token);
-        console.log('me', me);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -154,10 +110,8 @@ function Booking() {
           ))}
         </select>
       </div>
-      {!token && token !== 'undefined' && (
-        <div className="section-divider"></div>
-      )}
-      {!token && token !== "undefined" && (
+      <div className="section-divider"></div>
+      {!token && (
         <div className="client-info">
           <h1>Tell us a little bit about yourself</h1>
           <h2>Client Details</h2>
@@ -166,32 +120,20 @@ function Booking() {
             <div className="name-email-fields">
               <div className="name-field">
                 <label>Name *</label>
-                <input
-                  id="nameInput"
-                  value={selectedName}
-                  onChange={(e) => setSelectedName(e.target.value)}
-                />
+                <input id="nameInput" />
               </div>
               <div className="email-field">
                 <label>Email *</label>
-                <input
-                  id="emailInput"
-                  value={selectedEmail}
-                  onChange={(e) => setSelectedEmail(e.target.value)}
-                />
+                <input id="emailInput" />
               </div>
             </div>
             <div className="other-fields">
               <div>
                 <label>Phone Number *</label>
-                <input
-                  id="phoneInput"
-                  value={selectedPhone}
-                  onChange={(e) => setSelectedPhone(e.target.value)}
-                />
+                <input id="phoneInput" />
               </div>
 
-              {/* <div>
+              <div>
                 <label>Add Your Message *</label>
                 <input id="messageInput" />
               </div>
@@ -199,67 +141,54 @@ function Booking() {
               <div>
                 <label>Add images of Desired Work *</label>
                 <input id="imageUpload" name="image" type="file" />
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
-        
       )}
-      {!token && token !== 'undefined' && (
-        <div className="section-divider"></div>
-      )}
+      <div className="section-divider"></div>
       <div className="appointment-scheduling">
-        <h1>Schedule your appointment</h1>
-        <h2>Checkout the availability and book the date and time that works for you</h2>
-        <div className="appointment-container">
-          <div className="calendar-container">
-            <Calendar
-              onClickDay={handleDayPress}
-              tileClassName={tileClassName}
-              monthFormat={'yyyy MM'}
-            />
-          </div>
-          {selectedDate && (
-            <div className="time-selection">
-              <h2>Select Time</h2>
-              {availableSlots.length > 0 ? (
-                <div className="slot-list">
-                  {availableSlots.map((slot) => (
-                    <button
-                      key={slot}
-                      onClick={() => handleSelectSlot(slot)}
-                      className="slot-button"
-                      style={{
-                        backgroundColor: selectedTime === slot ? 'white' : 'black',
-                        color: selectedTime === slot ? 'black' : 'white',
-                      }}
-                    >
-                      {slot}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <p style={{ fontSize: '1.5rem' }}>Not available time slots for this day.</p>
-              )}
+          <h1>Schedule your appointment</h1>
+          <h2>Checkout the availability and book the date and time that works for you</h2>
+          <div className="appointment-container">
+            <div className="calendar-container">
+              <Calendar
+                onClickDay={handleDayPress}
+                tileClassName={tileClassName}
+                monthFormat={'yyyy MM'}
+              />
             </div>
-          )}
-        </div>
+            {selectedDate && (
+              <div className="time-selection">
+                <h2>Select Time</h2>
+                {availableSlots.length > 0 ? (
+                  <div className="slot-list">
+                    {availableSlots.map((slot) => (
+                      <button
+                        key={slot}
+                        onClick={() => handleSelectSlot(slot)}
+                        className="slot-button"
+                        style={{
+                          backgroundColor: selectedTime === slot ? 'white' : 'black',
+                          color: selectedTime === slot ? 'black' : 'white',
+                        }}
+                      >
+                        {slot}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ fontSize: '1.5rem' }}>Not available time slots for this day.</p>
+                )}
+              </div>
+            )}
+          </div>
       </div>
       <div className="next-button">
         <button type="submit" onClick={handleSubmit}>
           NEXT
         </button>
       </div>
-
-      {/* Modal to show booking confirmation */}
-      <Modal
-        isOpen={showModal}
-        onClose={() => {
-          setShowModal(false);
-          router.push("/");
-        }}
-        userDetails={userDetails}
-      />
     </div>
   );
 }
@@ -267,7 +196,7 @@ function Booking() {
 export default function Root() {
   return (
     <Provider store={store}>
-      <Booking />
+      <Booking2 />
     </Provider>
   );
 }
