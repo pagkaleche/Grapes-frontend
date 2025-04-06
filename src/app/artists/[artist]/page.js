@@ -75,7 +75,7 @@ export default function ArtistsSection() {
                   <img
                     src={photo.image}
                     alt={photo.description}
-                    className="object-cover object-center sm:w-48 md:w-64 lg:w-80 h-20 md:h-52 lg:h-64 group-hover:opacity-75 transition-opacity duration-300"
+                    className="object-cover object-center w-full h-72 group-hover:opacity-75 transition-opacity duration-300"
                     loading="lazy"
                     width={256}
                     height={256}
