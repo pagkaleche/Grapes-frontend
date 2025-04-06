@@ -4,11 +4,13 @@ import Card from "@components/Card";
 import { useEffect, useState } from "react";
 import { APIService } from "@/lib/APIService";
 import { Loading } from "./Loading";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const ArtistGrid = () => {
   const [artists, setArtists] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const apiService = new APIService();
@@ -36,6 +38,14 @@ const ArtistGrid = () => {
     );
   }
 
+  const toggleFavorite = (artistId) => {
+    setFavorites((prev) =>
+      prev.includes(artistId)
+        ? prev.filter((fav) => fav !== artistId)
+        : [...prev, artistId]
+    );
+  };
+
   return (
     <motion.div
       variants={containerVariants}
@@ -44,7 +54,17 @@ const ArtistGrid = () => {
       className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-12 pb-10"
     >
       {artists.length > 0 ? (
-        artists.map((artist, index) => <Card key={artist.id} artist={artist} />)
+        artists.map((artist, index) => (
+          <div className="relative" key={index}>
+            <Card key={artist.id} artist={artist} />
+            <div
+              className="absolute border-white border-2 rounded-full w-8 h-8 flex items-center justify-center bg-white/20 backdrop-blur-sm bottom-5 right-5 z-20 cursor-pointer"
+              onClick={() => toggleFavorite(artist.id)}
+            >
+              {favorites.includes(artist.id) ? <FaHeart /> : <FaRegHeart />}
+            </div>
+          </div>
+        ))
       ) : (
         <p>No artists available.</p>
       )}
