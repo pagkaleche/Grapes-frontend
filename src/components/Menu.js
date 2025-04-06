@@ -23,12 +23,12 @@ const pages = [
   { name: "Artists", href: "/artists" },
   { name: "Book Now", href: "/booking" },
   { name: "Contact Us", href: "/contact" },
-  { name: "Account", href: "/account" },
 ];
 
 export const Menu = () => {
   const [registrationLink, setRegistrationLink] = useState(registration[0]);
   const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track if user is logged in
   const [categories, setCategories] = useState([
     {
       name: "Gallery",
@@ -62,6 +62,13 @@ export const Menu = () => {
   ]);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+
     if (pathname === "/signin") {
       setRegistrationLink(registration[1]);
     } else {
@@ -230,6 +237,16 @@ export const Menu = () => {
                     {registrationLink.name}
                   </a>
                 </div>
+
+                {/* Show Account button if logged in */}
+                {isLoggedIn && (
+                  <Link
+                    href="/account"
+                    className="text-md font-medium text-red-400 hover:text-gray-100 hover:bg-red-400 p-2 rounded-md"
+                  >
+                    Account
+                  </Link>
+                )}
               </div>
             </div>
           </div>
