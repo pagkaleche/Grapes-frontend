@@ -102,7 +102,7 @@ function Account() {
               <button className="cancel-btn" onClick={handleCancel}>
                 Cancel Appointment
               </button>
-              <div style={{marginTop: '0.5rem', color: 'gold'}}>
+              <div className="policy-link"> 
                 <a href="#" onClick={openModal}>View Cancellation Policy</a>
               </div>
             </div>
