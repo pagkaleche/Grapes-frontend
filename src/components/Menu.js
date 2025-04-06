@@ -22,7 +22,7 @@ const pages = [
   { name: "About", href: "/about" },
   { name: "Artists", href: "/artists" },
   { name: "Book Now", href: "/booking" },
-  
+  { name: "Contact Us", href: "/contact" },
 ];
 
 export const Menu = () => {
