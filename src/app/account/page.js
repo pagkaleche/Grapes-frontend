@@ -13,10 +13,11 @@ function Account() {
   const token = useAppSelector((state) => state.auth.token);
   const apiService = new APIService();
   const [users, setUsers] = useState(null); // Set initial state as null
-  const [users2, setUsers2] =useState(null);
+  const [users2, setUsers2] = useState(null);
   const [appointmentId, setAppointmentId] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling modal visibility
   const email = localStorage.getItem('email');
   console.log(email);
 
@@ -63,7 +64,15 @@ function Account() {
   
   const book = () => {
     router.push("/booking");
-  }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="container">
@@ -93,6 +102,9 @@ function Account() {
               <button className="cancel-btn" onClick={handleCancel}>
                 Cancel Appointment
               </button>
+              <div style={{marginTop: '0.5rem', color: 'gold'}}>
+                <a href="#" onClick={openModal}>View Cancellation Policy</a>
+              </div>
             </div>
           ) : (
             <div className="book-appointment">
@@ -104,6 +116,21 @@ function Account() {
           )}
         </div>
       </div>
+
+      {/* Modal for Cancellation Policy */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Cancellation Policy</h2>
+            <div className="modal-details">
+              <p>We require at least 24 hours notice for cancellations or rescheduling.</p>
+              <p>If you cancel within 24 hours of your appointment, a cancellation fee will apply.</p>
+              <p>For rescheduling, please contact us at least 48 hours before your appointment time.</p>
+            </div>
+            <button className="close-button" onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
