@@ -18,40 +18,47 @@ function Account() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling modal visibility
-  
+  const [email, setEmail] = useState(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const email = localStorage.getItem('email');
+      const storedEmail = localStorage.getItem("email");
+      setEmail(storedEmail); // Set the email state from localStorage
     }
-    console.log(email);
-    const fetchData = async () => {
-      try {
-        let appointmentsArray = await apiService.Appointments.getAll(token);
-        console.log(appointmentsArray);
-        
-        const appointment = appointmentsArray.find(appointment => appointment.customer.user.email === email);
-        console.log(appointment);
-        
-        if (appointment && appointment.customer && appointment.customer.user) {
-          setUsers(appointment);  // Set the appointment data directly in users state
-          setUsers2(appointment);
-          setAppointmentId(appointment.id);
-          let dateObj = appointment.provided_at.split('T')[0];
-          let timeObj = appointment.provided_at.split('T')[1].split(':').slice(0, 2).join(':');
-          setDate(dateObj);
-          setTime(timeObj);
-        } else {
-          console.log("Appointment not found or data is incomplete.");
-          setUsers(null); // Ensure no appointment data is set
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
   }, []); // Run this effect only once when the component mounts
+
+  useEffect(() => {
+    console.log("Client's email 2: "+email)
+    if (email !== null) {
+      console.log("executing");
+      const fetchData = async () => {
+        try {
+          let appointmentsArray = await apiService.Appointments.getAll(token);
+          console.log(appointmentsArray);
+          
+          const appointment = appointmentsArray.find(appointment => appointment.customer.user.email === email);
+          console.log(appointment);
+          
+          if (appointment && appointment.customer && appointment.customer.user) {
+            setUsers(appointment);  // Set the appointment data directly in users state
+            setUsers2(appointment);
+            setAppointmentId(appointment.id);
+            let dateObj = appointment.provided_at.split('T')[0];
+            let timeObj = appointment.provided_at.split('T')[1].split(':').slice(0, 2).join(':');
+            setDate(dateObj);
+            setTime(timeObj);
+          } else {
+            console.log("Appointment not found or data is incomplete.");
+            setUsers(null); // Ensure no appointment data is set
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [email]); // Run fetchData whenever the email is set
 
   const handleCancel = async () => {
     try {
