@@ -27,9 +27,9 @@ function SignIn() {
       let authenticationResponse = await apiService.Auth.login(email, password);
       console.log("Authentication respoonse: " + JSON.stringify(authenticationResponse, null, 2));
       // Save the email in localStorage
-      if (typeof window !== "undefined") {
-        localStorage.setItem("email", email);  // Save email to localStorage
-      }
+      // if (typeof window !== "undefined") {
+      //   localStorage.setItem("email", email); 
+      // }
       dispatch(setToken(authenticationResponse.token));
       router.push("/");
     }

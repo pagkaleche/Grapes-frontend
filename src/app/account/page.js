@@ -18,10 +18,9 @@ function Account() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling modal visibility
-  if (typeof window !== "undefined") {
-    // Safe to use localStorage here, because we are on the client side
-    const email = localStorage.getItem('email');
-  }
+  // if (typeof window !== "undefined") {
+  //   const email = localStorage.getItem('email');
+  // }
   console.log(email);
 
   useEffect(() => {
