@@ -33,7 +33,10 @@ function Account() {
       console.log("executing");
       const fetchData = async () => {
         try {
-          let appointmentsArray = await apiService.Appointments.getAll(token);
+          let appointmentsArray = await apiService.Appointments.getAll(
+            null,
+            token,
+          );
           console.log(appointmentsArray);
           
           const appointment = appointmentsArray.find(appointment => appointment.customer.user.email === email);
