@@ -18,12 +18,13 @@ function Account() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling modal visibility
-  // if (typeof window !== "undefined") {
-  //   const email = localStorage.getItem('email');
-  // }
-  console.log(email);
+  
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const email = localStorage.getItem('email');
+    }
+    console.log(email);
     const fetchData = async () => {
       try {
         let appointmentsArray = await apiService.Appointments.getAll(token);

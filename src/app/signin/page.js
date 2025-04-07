@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/store/store";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import { APIService } from "@/lib/APIService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setToken } from "@/store/authSlice";
 
 function SignIn() {
@@ -17,6 +17,13 @@ function SignIn() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("email", email); 
+    }
+    console.log("Email: " + email);
+  })
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!email || !password) {
@@ -26,10 +33,7 @@ function SignIn() {
     try {
       let authenticationResponse = await apiService.Auth.login(email, password);
       console.log("Authentication respoonse: " + JSON.stringify(authenticationResponse, null, 2));
-      // Save the email in localStorage
-      // if (typeof window !== "undefined") {
-      //   localStorage.setItem("email", email); 
-      // }
+      
       dispatch(setToken(authenticationResponse.token));
       router.push("/");
     }
