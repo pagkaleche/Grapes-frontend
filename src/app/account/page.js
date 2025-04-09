@@ -19,6 +19,7 @@ function Account() {
   const [time, setTime] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for controlling modal visibility
   const [email, setEmail] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -38,6 +39,10 @@ function Account() {
             token,
           );
           console.log(appointmentsArray);
+
+          let fetchUser = await apiService.Users.me(token);
+          setUser(fetchUser);
+          console.log("Users array: "+JSON.stringify(users, null, 2));
           
           const appointment = appointmentsArray.find(appointment => appointment.customer.user.email === email);
           console.log(appointment);
@@ -94,9 +99,9 @@ function Account() {
         <h2 className="section-header">Profile Information</h2>
         <div className="section-content">
           <div className="info-card">
-            <p><strong>Name:</strong> {users2 ? users2.customer.user.first_name : 'Loading...'}</p>
+            <p><strong>Name:</strong> {user ? user.first_name + " " + user.last_name: 'Loading...'}</p>
             <p><strong>Phone Number:</strong> {users2 ? users2.customer.phone_number : 'Loading...'}</p>
-            <p><strong>Email:</strong> {users2 ? users2.customer.user.email : 'Loading...'}</p>
+            <p><strong>Email:</strong> {user ? user.email : 'Loading...'}</p>
           </div>
         </div>
 

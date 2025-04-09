@@ -36,7 +36,7 @@ function Booking() {
     date: '',
     time: '',
   });
-  // const email = localStorage.getItem('email');
+  const password = "qweasdzxc1234";
 
   const slots = ['10:00 a.m.', '11:00 a.m.', '12:00 p.m.', '13:00 p.m.', '14:00 p.m.', '15:00 p.m.', '16:00 p.m.', '17:00 p.m.'];
 
@@ -60,7 +60,6 @@ function Booking() {
         },
         phone_number: "123456789",
       }
-    
 
     let createdAppointment = await apiService.Appointments.create(
       appointmentData,
@@ -79,6 +78,16 @@ function Booking() {
     // Show the modal
     setShowModal(true);
     console.log("Client info: " + selectedEmail + selectedName + selectedPhone);
+
+    try {
+      console.log("Regestering the user");
+      let registrationResponse = await apiService.Auth.register(email, password);
+      console.log("User successfully registered: "+registrationResponse);
+    }
+    catch (exc) {
+      console.error(exc);
+      throw exc;
+    }
   };
 
   const handleDayPress = (date) => {
