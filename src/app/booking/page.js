@@ -41,6 +41,16 @@ function Booking() {
   const slots = ['10:00 a.m.', '11:00 a.m.', '12:00 p.m.', '13:00 p.m.', '14:00 p.m.', '15:00 p.m.', '16:00 p.m.', '17:00 p.m.'];
 
   const handleSubmit = async (event) => {
+    try {
+      console.log("Regestering the user");
+      let registrationResponse = await apiService.Auth.register(email, password);
+      console.log("User successfully registered: "+registrationResponse);
+    }
+    catch (exc) {
+      console.error(exc);
+      throw exc;
+    }
+    
     const formattedDate = selectedDate.toISOString().split('T')[0];
     const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
 
@@ -78,16 +88,6 @@ function Booking() {
     // Show the modal
     setShowModal(true);
     console.log("Client info: " + selectedEmail + selectedName + selectedPhone);
-
-    try {
-      console.log("Regestering the user");
-      let registrationResponse = await apiService.Auth.register(email, password);
-      console.log("User successfully registered: "+registrationResponse);
-    }
-    catch (exc) {
-      console.error(exc);
-      throw exc;
-    }
   };
 
   const handleDayPress = (date) => {
