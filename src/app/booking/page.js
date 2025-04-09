@@ -49,7 +49,7 @@ function Booking() {
       console.log("User successfully registered: " + JSON.stringify(registrationResponse));
 
       // Ensure registration is successful before proceeding to appointment creation
-      if (registrationResponse && registrationResponse.success) {
+      if (registrationResponse) {
         const formattedDate = selectedDate.toISOString().split('T')[0];
         const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
 
@@ -226,25 +226,6 @@ function Booking() {
                     value={selectedPhone}
                     onChange={(e) => setSelectedPhone(e.target.value)}
                     className="w-full px-4 py-2 border rounded-md text-gray-700"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="messageInput" className="block text-sm font-medium text-gray-700 mb-2">Add Your Message *</label>
-                  <textarea
-                    rows={5}
-                    id="messageInput"
-                    className="w-full px-4 py-2 border rounded-md text-gray-700"
-                  />
-                </div>
-
-                <div className="image-upload">
-                  <label htmlFor="imageUpload" className="block text-sm font-medium text-gray-700 mb-2">Add Images of Desired Work *</label>
-                  <input
-                    id="imageUpload"
-                    name="image"
-                    type="file"
-                    className="w-full py-2 text-gray-700"
                   />
                 </div>
               </div>
