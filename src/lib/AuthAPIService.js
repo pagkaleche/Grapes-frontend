@@ -7,10 +7,7 @@ export class AuthAPIService {
     return await APIClient.request({
       endpoint: "register/",
       method: "POST",
-      body: {
-        email: email,
-        password: password,
-      },
+      body: data,
     });
   }
 
@@ -25,3 +22,7 @@ export class AuthAPIService {
     });
   }
 }
+//body: {
+ // email: email,
+  //password: password,
+//},

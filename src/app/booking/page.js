@@ -44,8 +44,16 @@ function Booking() {
     try {
       console.log("Registering the user");
 
+      let registerData = {
+        user: {
+          first_name: selectedName,
+          last_name : "Gorbachev",
+          email: selectedEmail,
+        },
+      };
+
       // Wait for user registration to complete before moving forward
-      let registrationResponse = await apiService.Auth.register(selectedEmail, password);
+      let registrationResponse = await apiService.Auth.register(registerData, password);
       console.log("User successfully registered: " + JSON.stringify(registrationResponse));
 
       // Ensure registration is successful before proceeding to appointment creation
@@ -67,7 +75,7 @@ function Booking() {
             first_name: selectedName,
             email: selectedEmail,
           },
-          phone_number: "123456789",
+          phone_number: selectedPhone,
         };
 
         // Make sure to await the creation of the appointment
