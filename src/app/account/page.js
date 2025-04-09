@@ -42,7 +42,7 @@ function Account() {
 
           let fetchUser = await apiService.Users.me(token);
           setUser(fetchUser);
-          console.log("Users array: "+JSON.stringify(users, null, 2));
+          console.log("Users array: "+JSON.stringify(fetchUser, null, 2));
           
           const appointment = appointmentsArray.find(appointment => appointment.customer.user.email === email);
           console.log(appointment);
