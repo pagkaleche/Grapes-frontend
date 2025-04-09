@@ -42,61 +42,53 @@ function Booking() {
 
   const handleSubmit = async (event) => {
     try {
-      console.log("Registering the user");
-
-      // Wait for user registration to complete before moving forward
+      console.log("Regestering the user");
       let registrationResponse = await apiService.Auth.register(email, password);
-      console.log("User successfully registered: " + JSON.stringify(registrationResponse));
-
-      // Ensure registration is successful before proceeding to appointment creation
-      if (registrationResponse && registrationResponse.success) {
-        const formattedDate = selectedDate.toISOString().split('T')[0];
-        const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
-
-        let appointmentData = {
-          provided_at: `${formattedDate}T${cleanTime}Z`,
-          artist: selectedArtist.id,
-          provided_service: selectedService.id,
-          message: "",
-        };
-
-        console.log("EXECUTING Appointment Creation");
-
-        appointmentData['customer_data'] = {
-          user: {
-            first_name: selectedName,
-            email: selectedEmail,
-          },
-          phone_number: "123456789",
-        };
-
-        // Make sure to await the creation of the appointment
-        let createdAppointment = await apiService.Appointments.create(
-          appointmentData,
-          token
-        );
-        console.log("Created appointment: " + JSON.stringify(createdAppointment, null, 2));
-
-        // Set user details for the modal
-        setUserDetails({
-          name: createdAppointment.customer.user.first_name,
-          artist: createdAppointment.artist.user.first_name,
-          service: createdAppointment.provided_service.name,
-          date: formattedDate,
-          time: selectedTime,
-        });
-
-        // Show the modal
-        setShowModal(true);
-      } else {
-        console.error("User registration failed");
-      }
-    } catch (exc) {
-      console.error("Error in registration or appointment creation:", exc);
+      console.log("User successfully registered: "+registrationResponse);
+    }
+    catch (exc) {
+      console.error(exc);
       throw exc;
     }
-};
+    
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+    const cleanTime = selectedTime.replace(/(\s?[a|p]\.m\.)/g, '').trim();
 
+    let appointmentData = {
+      provided_at: `${formattedDate}T${cleanTime}Z`,
+      artist: selectedArtist.id,
+      provided_service: selectedService.id,
+      message: "",
+    };
+
+
+      console.log("EXECUTING");
+      appointmentData['customer_data'] = {
+        user: {
+          first_name: selectedName,
+          email: selectedEmail,
+        },
+        phone_number: "123456789",
+      }
+
+    let createdAppointment = await apiService.Appointments.create(
+      appointmentData,
+      token
+    );
+    console.log("created appointment"+JSON.stringify(createdAppointment, null, 2));
+    // Set user details for the modal
+    setUserDetails({
+      name: createdAppointment.customer.user.first_name,
+      artist: createdAppointment.artist.user.first_name,
+      service: createdAppointment.provided_service.name,
+      date: formattedDate,
+      time: selectedTime,
+    });
+
+    // Show the modal
+    setShowModal(true);
+    console.log("Client info: " + selectedEmail + selectedName + selectedPhone);
+  };
 
   const handleDayPress = (date) => {
     const dayOfWeek = date.getDay();
