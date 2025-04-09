@@ -75,7 +75,7 @@ function Booking() {
             first_name: selectedName,
             email: selectedEmail,
           },
-          phone_number: selectedPhone,
+          phone_number: "123456789",
         };
 
         // Make sure to await the creation of the appointment
