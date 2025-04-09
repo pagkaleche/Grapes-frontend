@@ -45,7 +45,7 @@ function Booking() {
       console.log("Registering the user");
 
       // Wait for user registration to complete before moving forward
-      let registrationResponse = await apiService.Auth.register(email, password);
+      let registrationResponse = await apiService.Auth.register(selectedEmail, password);
       console.log("User successfully registered: " + JSON.stringify(registrationResponse));
 
       // Ensure registration is successful before proceeding to appointment creation
